@@ -10,7 +10,7 @@ int main(int ac, char **av)
     for (int i = 1; av[i]; i++)
     {
         string arg(av[i]);
-        for (int j = 0; j < (int)arg.length(); j++)
+        for (size_t j = 0; j < arg.length(); j++)
             cout << (char)std::toupper(arg[j]);
     }
     cout << std::endl;
