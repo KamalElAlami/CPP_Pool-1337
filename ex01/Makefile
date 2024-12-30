@@ -6,7 +6,7 @@
 #    By: kael-ala <kael-ala@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/10/16 10:49:03 by kael-ala          #+#    #+#              #
-#    Updated: 2024/10/16 10:58:15 by kael-ala         ###   ########.fr        #
+#    Updated: 2024/12/30 11:38:42 by kael-ala         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -14,9 +14,9 @@ NAME = megaphone
 
 CC = c++
 CFLAGS = -Wall -Wextra -Werror -std=c++98
-HEADER = phonebook.hpp
+HEADER = phonebook.hpp contact.hpp
 
-SRC = main.cpp
+SRC = main.cpp phonebook.cpp contact.cpp
 OBJ = $(SRC:.cpp=.o)
 
 all: $(NAME)
