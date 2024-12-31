@@ -38,5 +38,15 @@ void PhoneBook::add_contact()
 
 void    PhoneBook::search_contact()
 {
+	int i;
 
+	i = 0;
+	cout << "-----------------------------------------" << endl;
+	cout << "| index | firstname | lastname | nickname |" << endl;
+	while (contacts[i].get_index() != -1)
+	{
+		cout << contacts[i].get_index() << '|' << contacts[i].get_fname() << '|' << contacts[i].get_lname() << '|' << contacts[i].get_nname() << endl;
+		i++;
+	}
+	cout << "-----------------------------------------" << endl;
 }

@@ -1,4 +1,4 @@
-#include "contact.hpp"
+  #include "contact.hpp"
 
 Contact::Contact()
 {
@@ -15,4 +15,28 @@ void Contact::set_inputs(string fname, string lname, string nname, string num, s
 	nickname = nname;
 	phonenumber = num;
 	darkestone = dark;
+}
+int Contact::get_index(void)
+{
+	return index;
+}
+string Contact::get_fname(void)
+{
+	return firstname;
+}
+string Contact::get_lname(void)
+{
+	return lastname;
+}
+string Contact::get_nname(void)
+{
+	return nickname;
+}
+string Contact::get_phone(void)
+{
+	return phonenumber;
+}
+string Contact::get_darkestone(void)
+{
+	return darkestone;
 }

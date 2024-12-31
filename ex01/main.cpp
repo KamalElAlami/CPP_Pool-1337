@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.cpp                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dedsec <dedsec@student.42.fr>              +#+  +:+       +#+        */
+/*   By: kael-ala <kael-ala@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/16 11:22:15 by kael-ala          #+#    #+#             */
-/*   Updated: 2024/12/31 11:02:56 by dedsec           ###   ########.fr       */
+/*   Updated: 2024/12/31 14:15:56 by kael-ala         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,8 @@ int main(void)
         else if (cmd == "SEARCH")
             book.search_contact();
         else if (cmd == "EXIT")
-            book.exit();
+            // book.exit();
+            exit(1);
         else
             cout << "Invalid command. Please use ADD, SEARCH, or EXIT.\n";
     }
