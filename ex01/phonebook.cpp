@@ -1,16 +1,42 @@
-#include "phonebook.hpp"
+#include "PhoneBook.hpp"
 
 PhoneBook::PhoneBook()
-{}
-
-void PhoneBook::add_contact(Contact new_one)
 {
-    if (count < 8)
-    {
-        count++;
-        contacts[count].set_index(count);
-        contacts[count] = new_one;
-    }
-    else
-        count = 0;
+	count = 0;
+}
+
+void PhoneBook::add_contact()
+{
+	string fname;
+	string lname;
+	string nname;
+	string num;
+	string dark;
+
+	while (fname.empty() || lname.empty() || nname.empty() || num.empty() || dark.empty())
+	{
+		cout << "First Name: ";
+		getline(cin, fname);
+		cout << "Last Name: ";
+		getline(cin, lname);
+		cout << "Nick Name: ";
+		getline(cin, nname);
+		cout << "Phone Number: ";
+		getline(cin, num);
+		cout << "Your Darkest Secret: ";
+		getline(cin, dark);
+		if (fname.empty() || lname.empty() || nname.empty() || num.empty() || dark.empty())
+			cout << "Empty fields is not allowed\n";
+	}
+
+	if (count >= 8)
+		count = 0;
+	contacts[count].set_inputs(fname, lname, nname, num, dark);
+	contacts[count].set_index(count);
+	count++;
+}
+
+void    PhoneBook::search_contact()
+{
+
 }

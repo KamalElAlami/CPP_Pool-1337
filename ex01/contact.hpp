@@ -1,15 +1,3 @@
-/* ************************************************************************** */
-/*                                                                            */
-/*                                                        :::      ::::::::   */
-/*   contact.hpp                                        :+:      :+:    :+:   */
-/*                                                    +:+ +:+         +:+     */
-/*   By: kael-ala <kael-ala@student.42.fr>          +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/12/30 09:50:03 by kael-ala          #+#    #+#             */
-/*   Updated: 2024/12/30 11:33:52 by kael-ala         ###   ########.fr       */
-/*                                                                            */
-/* ************************************************************************** */
-
 #ifndef CONTACT_HPP
 #define CONTACT_HPP
 
@@ -22,12 +10,13 @@ using std::endl;
 class Contact
 {
     private:
-        int index;
-        string firstname;
-        string lastname;
-        string nickname;
-        string phonenumber;
-        string darkestone;
+        int     index;
+        string  firstname;
+        string  lastname;
+        string  nickname;
+        string  phonenumber;
+        string  darkestone;
+
     public:
         Contact ();
         void set_index(int n);
