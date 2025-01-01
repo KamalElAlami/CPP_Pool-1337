@@ -2,10 +2,14 @@
 #define CONTACT_HPP
 
 #include <iostream>
+#include <iomanip>
 using std::cout;
 using std::cin;
+using std::getline;
 using std::string;
 using std::endl;
+using std::setw;
+using std::stoi;
 
 class Contact
 {
