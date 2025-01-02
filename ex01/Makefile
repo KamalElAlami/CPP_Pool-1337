@@ -3,20 +3,21 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: dedsec <dedsec@student.42.fr>              +#+  +:+       +#+         #
+#    By: kael-ala <kael-ala@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/10/16 10:49:03 by kael-ala          #+#    #+#              #
-#    Updated: 2025/01/01 21:06:31 by dedsec           ###   ########.fr        #
+#    Updated: 2025/01/02 13:52:57 by kael-ala         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME = phonebook
 
-CC = g++
+CC = c++
 CFLAGS = -Wall -Wextra -Werror -std=c++98
-HEADER = phonebook.hpp contact.hpp
+HEADER = PhoneBook.hpp Contact.hpp
 
-SRC = main.cpp phonebook.cpp contact.cpp
+SRC = main.cpp PhoneBook.cpp Contact.cpp
+
 OBJ = $(SRC:.cpp=.o)
 
 all: $(NAME)
@@ -24,7 +25,7 @@ all: $(NAME)
 $(NAME): $(OBJ)
 	$(CC) $(CFLAGS) $(OBJ) -o $(NAME)
 
-%.o: %.cpp 
+%.o: %.cpp $(HEADER)
 	$(CC) $(CFLAGS) -c $< -o $@
 
 clean:

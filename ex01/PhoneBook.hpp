@@ -1,7 +1,7 @@
 #ifndef PHONEBOOK_HPP
 #define PHONEBOOK_HPP
 
-#include "contact.hpp"
+#include "Contact.hpp"
 
 class PhoneBook
 {
@@ -12,8 +12,8 @@ class PhoneBook
         PhoneBook();
         void    add_contact();
         void    search_contact();
-        string  ft_getline(void);
         void    exit();
+        string  ft_getline(void);
 };
 
 #endif

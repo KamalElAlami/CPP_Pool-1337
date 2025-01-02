@@ -6,7 +6,7 @@
 /*   By: kael-ala <kael-ala@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/16 11:22:15 by kael-ala          #+#    #+#             */
-/*   Updated: 2025/01/02 11:54:44 by kael-ala         ###   ########.fr       */
+/*   Updated: 2025/01/02 13:56:16 by kael-ala         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,6 +28,6 @@ int main(void)
         else if (cmd == "EXIT")
             book.exit();
         else
-            cout << "Invalid command. Please use ADD, SEARCH, or EXIT.\n";
+            cout << "Invalid command. Please use ADD, SEARCH, or EXIT." << endl;
     }
 }
