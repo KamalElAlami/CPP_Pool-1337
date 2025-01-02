@@ -3,13 +3,14 @@
 
 #include <iostream>
 #include <iomanip>
+#include <cstdlib>
 using std::cout;
 using std::cin;
 using std::getline;
 using std::string;
 using std::endl;
 using std::setw;
-using std::stoi;
+using std::atoi;
 
 class Contact
 {

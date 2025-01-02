@@ -3,16 +3,16 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: kael-ala <kael-ala@student.42.fr>          +#+  +:+       +#+         #
+#    By: dedsec <dedsec@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/10/16 10:49:03 by kael-ala          #+#    #+#              #
-#    Updated: 2024/12/30 11:38:42 by kael-ala         ###   ########.fr        #
+#    Updated: 2025/01/01 21:06:31 by dedsec           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
-NAME = megaphone
+NAME = phonebook
 
-CC = c++
+CC = g++
 CFLAGS = -Wall -Wextra -Werror -std=c++98
 HEADER = phonebook.hpp contact.hpp
 
@@ -24,7 +24,7 @@ all: $(NAME)
 $(NAME): $(OBJ)
 	$(CC) $(CFLAGS) $(OBJ) -o $(NAME)
 
-%.o: %.cpp $(HEADER)
+%.o: %.cpp 
 	$(CC) $(CFLAGS) -c $< -o $@
 
 clean:

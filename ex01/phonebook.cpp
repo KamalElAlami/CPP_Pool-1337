@@ -75,7 +75,6 @@ static void print_contact(Contact contact[], int index)
 void    PhoneBook::search_contact()
 {
 	string input;
-	int lastindex;
 	int i;
 
 	i = 0;
@@ -90,7 +89,13 @@ void    PhoneBook::search_contact()
 		i++;
 	}
 	cout << "---------------------------------------------" << endl;
-	cout << "Enter Contact Index : ";
-	getline(cin, input);
-	print_contact(contacts, stoi(input));
+	while (input.empty())
+	{
+		cout << "Enter Contact Index : ";
+		getline(cin, input);
+	}
+	int res = atoi(input.c_str());
+	if (res == 0 && input != "0")
+		res = -1;
+	print_contact(contacts, res);
 }
