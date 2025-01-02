@@ -6,7 +6,7 @@
 /*   By: kael-ala <kael-ala@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/16 11:22:15 by kael-ala          #+#    #+#             */
-/*   Updated: 2025/01/01 04:23:19 by kael-ala         ###   ########.fr       */
+/*   Updated: 2025/01/02 11:54:44 by kael-ala         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,14 +20,13 @@ int main(void)
     while (1)
     {
         cout << "Please enter a command (ADD, SEARCH, EXIT): ";
-        getline(cin, cmd);
+        cmd = book.ft_getline();
         if (cmd == "ADD")
             book.add_contact();
         else if (cmd == "SEARCH")
             book.search_contact();
         else if (cmd == "EXIT")
-            // book.exit();
-            exit(1);
+            book.exit();
         else
             cout << "Invalid command. Please use ADD, SEARCH, or EXIT.\n";
     }

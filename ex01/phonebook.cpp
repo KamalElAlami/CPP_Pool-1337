@@ -1,8 +1,22 @@
 #include "PhoneBook.hpp"
 
+string	PhoneBook::ft_getline(void)
+{
+	string temp;
+	if (!getline(cin, temp))
+		exit();
+	return (temp);
+}
+
 PhoneBook::PhoneBook()
 {
 	count = 0;
+}
+
+void	PhoneBook::exit()
+{
+	cout << endl << "Exiting......." << endl;
+	std::exit(0);
 }
 
 void PhoneBook::add_contact()
@@ -16,15 +30,15 @@ void PhoneBook::add_contact()
 	while (fname.empty() || lname.empty() || nname.empty() || num.empty() || dark.empty())
 	{
 		cout << "First Name: ";
-		getline(cin, fname);
+		fname = ft_getline();
 		cout << "Last Name: ";
-		getline(cin, lname);
+		lname = ft_getline();
 		cout << "Nick Name: ";
-		getline(cin, nname);
+		nname = ft_getline();
 		cout << "Phone Number: ";
-		getline(cin, num);
+		num = ft_getline();
 		cout << "Your Darkest Secret: ";
-		getline(cin, dark);
+		dark = ft_getline();
 		if (fname.empty() || lname.empty() || nname.empty() || num.empty() || dark.empty())
 			cout << "Empty fields is not allowed\n";
 	}
@@ -40,7 +54,7 @@ static string large_str(string word)
 	string new_word;
 
 	if (word.length() >= 10)
-		new_word = word.substr(0, 8) + '.';
+		new_word = word.substr(0, 9) + '.';
 	else
 		new_word = word;
 	return (new_word);
@@ -92,7 +106,7 @@ void    PhoneBook::search_contact()
 	while (input.empty())
 	{
 		cout << "Enter Contact Index : ";
-		getline(cin, input);
+		input = ft_getline();
 	}
 	int res = atoi(input.c_str());
 	if (res == 0 && input != "0")

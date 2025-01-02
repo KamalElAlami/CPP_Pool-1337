@@ -10,11 +10,10 @@ class PhoneBook
         Contact contacts[8];
     public:
         PhoneBook();
-        void add_contact();
-        void search_contact();
-        void exit();
+        void    add_contact();
+        void    search_contact();
+        string  ft_getline(void);
+        void    exit();
 };
-
-
 
 #endif
