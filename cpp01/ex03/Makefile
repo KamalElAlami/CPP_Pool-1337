@@ -3,26 +3,27 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: dedsec <dedsec@student.42.fr>              +#+  +:+       +#+         #
+#    By: kael-ala <kael-ala@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/10/16 10:49:03 by kael-ala          #+#    #+#              #
-#    Updated: 2025/01/05 15:36:53 by dedsec           ###   ########.fr        #
+#    Updated: 2025/01/06 11:01:58 by kael-ala         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
-NAME = main
+NAME = unnecessary_voilence
 CC = c++
 CFLAGS = -Wall -Wextra -Werror -std=c++98
 
-SRC = main.cpp
+SRC = main.cpp HumanA.cpp HumanB.cpp Weapon.cpp 
 OBJ = $(SRC:.cpp=.o)
+HEADER = HumanA.hpp HumanB.hpp Weapon.hpp
 
 all: $(NAME)
 
 $(NAME): $(OBJ)
 	$(CC) $(CFLAGS) $(OBJ) -o $(NAME)
 
-%.o: %.cpp
+%.o: %.cpp $(HEADER)
 	$(CC) $(CFLAGS) -c $< -o $@
 
 clean:
