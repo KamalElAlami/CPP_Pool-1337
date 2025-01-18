@@ -3,20 +3,20 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: kael-ala <kael-ala@student.42.fr>          +#+  +:+       +#+         #
+#    By: dedsec <dedsec@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/10/16 10:49:03 by kael-ala          #+#    #+#              #
-#    Updated: 2025/01/06 11:01:58 by kael-ala         ###   ########.fr        #
+#    Updated: 2025/01/08 19:18:51 by dedsec           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
-NAME = unnecessary_voilence
-CC = g++-10
+NAME = Replace
+CC = g++
 CFLAGS = -Wall -Wextra -Werror -std=c++98
 
-SRC = main.cpp HumanA.cpp HumanB.cpp Weapon.cpp 
+SRC = main.cpp sedForLosers.cpp  
 OBJ = $(SRC:.cpp=.o)
-HEADER = HumanA.hpp HumanB.hpp Weapon.hpp
+HEADER = sedForLosers.hpp
 
 all: $(NAME)
 
