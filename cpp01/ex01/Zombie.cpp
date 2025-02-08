@@ -2,14 +2,13 @@
 
 Zombie::Zombie()
 {
-	// name = n;
 }
-void Zombie::set_name(string n)
+void Zombie::set_name(std::string n)
 {
 	name = n;
 }
 
 void Zombie::announce(void)
 {
-	cout << name << " : BraiiiiiiinnnzzzZ..." << endl;
+	std::cout << name << " : BraiiiiiiinnnzzzZ..." << std::endl;
 }
