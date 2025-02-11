@@ -28,16 +28,10 @@ static std::string strToLower(std::string str)
 static t_Levels getLevel(std::string level)
 {
 	level = strToLower(level);
-
-	if (!level.compare("debug"))
-		return (DEBUG);
-	if (!level.compare("info"))
-		return (INFO);
-	if (!level.compare("warning"))
-		return (WARNING);
-	if (!level.compare("error"))
-		return (ERROR);
-	else
+	std::string lvls[4] = {"debug", "info", "warning", "error"};
+	for (int i = 0; i < 4; i++)
+		if (!level.compare(lvls[i]))
+			return ((t_Levels)i);
 		return (INVALID);
 }
 
