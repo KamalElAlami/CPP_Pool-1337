@@ -6,12 +6,12 @@
 #    By: kael-ala <kael-ala@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/10/16 10:49:03 by kael-ala          #+#    #+#              #
-#    Updated: 2025/01/06 11:01:58 by kael-ala         ###   ########.fr        #
+#    Updated: 2025/02/11 01:35:17 by kael-ala         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME = unnecessary_voilence
-CC = g++-10
+CC = c++
 CFLAGS = -Wall -Wextra -Werror -std=c++98
 
 SRC = main.cpp HumanA.cpp HumanB.cpp Weapon.cpp 

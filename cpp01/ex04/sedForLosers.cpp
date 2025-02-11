@@ -7,6 +7,8 @@ outfile(file + ".replace"),
 str1(s1),
 str2(s2)
 {
+	if (str1.empty())
+		exit(1);
 }
 
 std::string Replace::findAndReplace(std::string line, std::string word)
