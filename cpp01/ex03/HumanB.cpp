@@ -5,7 +5,7 @@ HumanB::HumanB(std::string name):
  weaponB(NULL)
 {}
 
-void HumanB::take_weapon(Weapon& weap)
+void HumanB::setWeapon(Weapon& weap)
 {
 	weaponB = &weap;
 }

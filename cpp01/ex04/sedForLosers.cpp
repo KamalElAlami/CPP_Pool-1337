@@ -31,10 +31,12 @@ void Replace::giga_sed(void)
 	std::ofstream outstream(outfile.c_str(), std::ios::out);
 	while (std::getline(instream, str))
 	{
+		if (!instream.eof())
+			str += '\n';
 		if (str.find(str1) != std::string::npos)
-			outstream << findAndReplace(str, str2) << std::endl;
+			outstream << findAndReplace(str, str2);
 		else
-			outstream << str << std::endl;
+			outstream << str;
 	}
 
 }

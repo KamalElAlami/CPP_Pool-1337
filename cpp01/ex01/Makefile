@@ -4,7 +4,7 @@ CC = c++
 CFLAGS = -Wall -Wextra -Werror -std=c++98
 HEADER = Zombie.hpp
 
-SRC = main.cpp Zombie.cpp zombieHorde.cpp
+SRC = main.cpp Zombie.cpp
 
 OBJ = $(SRC:.cpp=.o)
 
