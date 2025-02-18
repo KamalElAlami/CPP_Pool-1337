@@ -29,7 +29,7 @@ std::ostream& operator<<(std::ostream& out, const Fixed& obj)
 	return (out);
 }
 
-Fixed::Fixed(Fixed& obj)
+Fixed::Fixed(const Fixed& obj)
 {
 	std::cout << "Copy constructor called" << std::endl;
 	fixedPoint = obj.fixedPoint;
@@ -46,9 +46,15 @@ int Fixed::getRawBits(void) const
 	return (fixedPoint);
 }
 
+void Fixed::setRawBits(int const raw)
+{
+	std::cout << "setRawBits member function called" << std::endl;
+	fixedPoint = raw;
+}
+
 float Fixed::toFloat( void ) const
 {
-	return (fixedPoint / (1 << fbits));
+	return (((float)fixedPoint / (1 << fbits)));
 }
 
 int Fixed::toInt( void ) const

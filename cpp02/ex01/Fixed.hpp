@@ -13,7 +13,7 @@ class Fixed
 		Fixed();
 		Fixed(int number);
 		Fixed(float number);
-		Fixed(Fixed& obj);
+		Fixed(const Fixed& obj);
 		~Fixed();
 
 		Fixed& operator=(const Fixed& obj);

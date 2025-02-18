@@ -1,6 +1,6 @@
 NAME = Fixed
 
-CC = c++
+CC = g++
 CFLAGS = -Wall -Wextra -Werror -std=c++98
 HEADER = Fixed.hpp
 
