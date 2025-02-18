@@ -6,15 +6,15 @@
 class Fixed
 {
 	private :
-		int primary;
+		int fixedPoint;
 		static const int fbits = 8;
 	public :
 		Fixed();
 		Fixed(Fixed& obj);
 		Fixed& operator=(const Fixed& obj);
 		~Fixed();
-		int getRawBits( void ) const;
-		void setRawBits( int const raw );
+		int getRawBits(void) const;
+		void setRawBits(int const raw);
 
 };
 
