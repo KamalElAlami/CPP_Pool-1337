@@ -108,21 +108,60 @@ bool Fixed::operator!=(const Fixed &obj) const
 
 Fixed Fixed::operator+(const Fixed &obj) const
 {
-	return (Fixed(this->toFloat() + obj.toFloat()))
+	return (Fixed(this->toFloat() + obj.toFloat()));
 }
 
 Fixed Fixed::operator-(const Fixed &obj) const
 {
-	return (Fixed(this->toFloat() - obj.toFloat()))
+	return (Fixed(this->toFloat() - obj.toFloat()));
 }
 
 Fixed Fixed::operator*(const Fixed &obj) const
 {
-	return (Fixed(this->toFloat() * obj.toFloat()))
+	return (Fixed(this->toFloat() * obj.toFloat()));
 }
 
 Fixed Fixed::operator/(const Fixed &obj) const
 {
-	return (Fixed(this->toFloat() / obj.toFloat()))
+	return (Fixed(this->toFloat() / obj.toFloat()));
 }
 
+Fixed& Fixed::operator++()
+{
+	Fixed old = Fixed(*this);
+	fixedPoint++;
+	return (old);
+}
+Fixed& Fixed::operator--()
+{
+	Fixed old = Fixed(*this);
+	fixedPoint--;
+	return (old);
+}
+Fixed Fixed::operator++(int)
+{
+	fixedPoint++;
+	return (*this);
+}
+Fixed Fixed::operator--(int)
+{
+	fixedPoint--;
+	return (*this);
+}
+
+static Fixed& min(Fixed &a, Fixed &b)
+{
+	return ((a.getRawBits() < b.getRawBits()) ? a : b);
+}
+static Fixed& max(Fixed &a, Fixed &b)
+{
+	return ((a.getRawBits() > b.getRawBits()) ? a : b);
+}
+static const Fixed& min(const Fixed &a, const Fixed &b)
+{
+	return ((a.getRawBits() < b.getRawBits()) ? a : b);
+}
+static const Fixed& max(const Fixed &a, const Fixed &b)
+{
+	return ((a.getRawBits() > b.getRawBits()) ? a : b);
+}
