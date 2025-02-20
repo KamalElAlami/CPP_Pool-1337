@@ -39,9 +39,9 @@ class Fixed
 		Fixed operator/(const Fixed &obj) const;
 
 		// inc & dec operators
-		Fixed& operator++();
+		Fixed& operator++(void);
 		Fixed operator++(int);
-		Fixed& operator--();
+		Fixed& operator--(void);
 		Fixed operator--(int);
 
 		static Fixed& min(Fixed &a, Fixed &b);
