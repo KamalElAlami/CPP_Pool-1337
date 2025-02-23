@@ -4,15 +4,15 @@ FragTrap::FragTrap() : ClapTrap()
 {
 	std::cout << "FragTrap default constructor called" << std::endl;
 	setHitPoints(100);
-	setEnergyPoints(50);
-	setAttackDamage(20);
+	setEnergyPoints(100);
+	setAttackDamage(30);
 }
 FragTrap::FragTrap(std::string name) : ClapTrap(name)
 {
 	std::cout << "FragTrap Parametrized constructor called" << std::endl;
 	setHitPoints(100);
-	setEnergyPoints(50);
-	setAttackDamage(20);
+	setEnergyPoints(100);
+	setAttackDamage(30);
 }
 FragTrap& FragTrap::operator=(const FragTrap& obj)
 {
