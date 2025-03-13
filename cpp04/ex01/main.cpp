@@ -1,86 +1,98 @@
 #include "Animal.hpp"
 #include "Dog.hpp"
 #include "Cat.hpp"
-#include "WrongAnimal.hpp"
-#include "WrongCat.hpp"
+#include <iostream>
 
 int main()
 {
-    std::cout << "--------- BASIC ANIMAL TESTS ---------\n" << std::endl;
+    std::cout << "========== TESTING ANIMAL ARRAY ==========" << std::endl;
     
-    // Test 1: Base Animal class
-    std::cout << "Creating a base Animal:" << std::endl;
-    const Animal* meta = new Animal();
-    std::cout << "Type: " << meta->getType() << std::endl;
-    std::cout << "Sound: ";
-    meta->makeSound();
-    std::cout << std::endl;
+    // Create an array of Animal objects (half Dog, half Cat)
+    const int count = 6;
+    Animal* animals[count];
     
-    // Test 2: Dog class (polymorphism)
-    std::cout << "Creating a Dog through Animal pointer:" << std::endl;
-    const Animal* dog = new Dog();
-    std::cout << "Type: " << dog->getType() << std::endl;
-    std::cout << "Sound: ";
-    dog->makeSound();
-    std::cout << std::endl;
+    // Fill the array
+    for (int i = 0; i < count; i++)
+    {
+        if (i < count / 2)
+        {
+            std::cout << "\nCreating Dog #" << i << std::endl;
+            animals[i] = new Dog();
+        }
+        else
+        {
+            std::cout << "\nCreating Cat #" << i - count / 2 << std::endl;
+            animals[i] = new Cat();
+        }
+    }
     
-    // Test 3: Cat class (polymorphism)
-    std::cout << "Creating a Cat through Animal pointer:" << std::endl;
-    const Animal* cat = new Cat();
-    std::cout << "Type: " << cat->getType() << std::endl;
-    std::cout << "Sound: ";
-    cat->makeSound();
-    std::cout << std::endl;
+    // Make the animals make sounds to verify polymorphism
+    std::cout << "\n========== ANIMAL SOUNDS ==========" << std::endl;
+    for (int i = 0; i < count; i++)
+    {
+        std::cout << "Animal #" << i << " (" << animals[i]->getType() << "): ";
+        animals[i]->makeSound();
+    }
     
-    // Test 4: Direct Dog instantiation
-    std::cout << "Creating a Dog directly:" << std::endl;
-    const Dog directDog;
-    std::cout << "Type: " << directDog.getType() << std::endl;
-    std::cout << "Sound: ";
-    directDog.makeSound();
-    std::cout << std::endl;
+    // Delete all animals
+    std::cout << "\n========== CLEANING ANIMAL ARRAY ==========" << std::endl;
+    for (int i = 0; i < count; i++)
+    {
+        std::cout << "\nDeleting Animal #" << i << " (" << animals[i]->getType() << ")" << std::endl;
+        delete animals[i];
+    }
     
-    // Test 5: Direct Cat instantiation
-    std::cout << "Creating a Cat directly:" << std::endl;
-    const Cat directCat;
-    std::cout << "Type: " << directCat.getType() << std::endl;
-    std::cout << "Sound: ";
-    directCat.makeSound();
-    std::cout << std::endl;
+    // Test deep copy for Dog
+    std::cout << "\n========== TESTING DEEP COPY (DOG) ==========" << std::endl;
     
-    std::cout << "\n--------- WRONG ANIMAL TESTS (non-polymorphic) ---------\n" << std::endl;
+    Dog* dog1 = new Dog();
+    Dog* dog2 = new Dog(*dog1);  // Copy constructor test
     
-    // Test 6: Base WrongAnimal class
-    std::cout << "Creating a base WrongAnimal:" << std::endl;
-    const WrongAnimal* wrongMeta = new WrongAnimal();
-    std::cout << "Type: " << wrongMeta->getType() << std::endl;
-    std::cout << "Sound: ";
-    wrongMeta->makeSound();
-    std::cout << std::endl;
+    std::cout << "\nDeleting original dog" << std::endl;
+    delete dog1;
     
-    // Test 7: WrongCat through WrongAnimal pointer (NO polymorphism)
-    std::cout << "Creating a WrongCat through WrongAnimal pointer:" << std::endl;
-    const WrongAnimal* wrongCat = new WrongCat();
-    std::cout << "Type: " << wrongCat->getType() << std::endl;
-    std::cout << "Sound: ";
-    wrongCat->makeSound(); // This will call WrongAnimal::makeSound() since it's not virtual!
-    std::cout << std::endl;
+    std::cout << "\nMaking copied dog bark (should work if deep copy was successful)" << std::endl;
+    dog2->makeSound();
     
-    // Test 8: Direct WrongCat instantiation
-    std::cout << "Creating a WrongCat directly:" << std::endl;
-    const WrongCat directWrongCat;
-    std::cout << "Type: " << directWrongCat.getType() << std::endl;
-    std::cout << "Sound: ";
-    directWrongCat.makeSound(); // This will call WrongCat::makeSound() since we use the exact type
-    std::cout << std::endl;
+    std::cout << "\nDeleting copied dog" << std::endl;
+    delete dog2;
     
-    // Clean up memory
-    std::cout << "\n--------- CLEANING UP MEMORY ---------\n" << std::endl;
-    delete meta;
-    delete dog;
-    delete cat;
-    delete wrongMeta;
-    delete wrongCat;
+    // Test deep copy for Cat
+    std::cout << "\n========== TESTING DEEP COPY (CAT) ==========" << std::endl;
+    
+    Cat* cat1 = new Cat();
+    Cat* cat2 = new Cat(*cat1);  // Copy constructor test
+    
+    std::cout << "\nDeleting original cat" << std::endl;
+    delete cat1;
+    
+    std::cout << "\nMaking copied cat meow (should work if deep copy was successful)" << std::endl;
+    cat2->makeSound();
+    
+    std::cout << "\nDeleting copied cat" << std::endl;
+    delete cat2;
+    
+    // Test assignment operator (deep copy)
+    std::cout << "\n========== TESTING ASSIGNMENT OPERATOR ==========" << std::endl;
+    
+    Cat* cat3 = new Cat();
+    Cat* cat4 = new Cat();
+    
+    std::cout << "\nAssigning cat4 = cat3" << std::endl;
+    *cat4 = *cat3;
+    
+    std::cout << "\nDeleting original cat" << std::endl;
+    delete cat3;
+    
+    std::cout << "\nMaking assigned cat meow (should work if deep copy was successful)" << std::endl;
+    cat4->makeSound();
+    
+    std::cout << "\nDeleting assigned cat" << std::endl;
+    delete cat4;
+    
+    // Uncomment for memory leak testing
+    std::cout << "\n========== PRESS ENTER TO EXIT ==========" << std::endl;
+    std::cin.get();
     
     return 0;
 }
