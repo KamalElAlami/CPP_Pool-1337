@@ -1,8 +1,8 @@
 NAME = ex02
 
-CC = g++
-CFLAGS = -Wall -Wextra -Werror -std=c++98
-HEADER = Animal.hpp WrongAnimal.hpp Cat.hpp WrongCat.hpp Dog.hpp Brain,hpp
+CC = c++
+CFLAGS = -Wall -Wextra -Werror -std=c++98 -g
+HEADER = Animal.hpp WrongAnimal.hpp Cat.hpp WrongCat.hpp Dog.hpp Brain.hpp
  
 SRC = main.cpp Animal.cpp WrongAnimal.cpp Cat.cpp WrongCat.cpp Dog.cpp Brain.cpp
 

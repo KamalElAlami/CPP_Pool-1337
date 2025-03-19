@@ -10,10 +10,9 @@ Dog::~Dog()
 {
 	std::cout << "Dog destructor called" << std::endl;
 }
-Dog::Dog(std::string ttype)
+Dog::Dog(std::string ttype) : Animal(ttype)
 {
 	std::cout << "Dog Parametrized constructor called" << std::endl;
-	type = ttype;
 }
 
 Dog& Dog::operator=(const Dog &obj)

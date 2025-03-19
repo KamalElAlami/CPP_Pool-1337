@@ -10,10 +10,9 @@ Cat::~Cat()
 {
 	std::cout << "Cat destructor called" << std::endl;
 }
-Cat::Cat(std::string ttype)
+Cat::Cat(std::string ttype) : Animal(ttype)
 {
 	std::cout << "Cat Parametrized constructor called" << std::endl;
-	type = ttype;
 }
 
 Cat& Cat::operator=(const Cat &obj)

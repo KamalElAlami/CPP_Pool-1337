@@ -1,10 +1,10 @@
-NAME = ex00
+NAME = ex03
 
 CC = c++
-CFLAGS = -Wall -Wextra -Werror -std=c++98 -fsanitize=address -g3
-HEADER = Animal.hpp WrongAnimal.hpp Cat.hpp WrongCat.hpp Dog.hpp
+CFLAGS = -Wall -Wextra -Werror -std=c++98
+HEADER = AMateria.hpp Character.hpp ICharacter.hpp Cure.hpp Ice.hpp IMateriaSource.hpp MateriaSource.hpp
  
-SRC = main.cpp Animal.cpp WrongAnimal.cpp Cat.cpp WrongCat.cpp Dog.cpp
+SRC = main.cpp AMateria.cpp Character.cpp Cure.cpp Ice.cpp MateriaSource.cpp
 
 OBJ = $(SRC:.cpp=.o)
 
