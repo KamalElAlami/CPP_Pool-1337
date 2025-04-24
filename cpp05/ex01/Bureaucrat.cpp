@@ -1,4 +1,5 @@
 #include "Bureaucrat.hpp"
+#include "Form.hpp"
 
 Bureaucrat::Bureaucrat() : name("Unknown"), grade(150)
 {
@@ -61,6 +62,14 @@ void Bureaucrat::gradeDecrement(void)
 		throw GradeTooLowException();
 	grade++;
 }
+
+void Bureaucrat::signForm(Form &form)
+{
+	// try {
+	// 	Fo
+	// }
+}
+
 std::ostream& operator<<(std::ostream& out, const Bureaucrat& obj)
 {
 	out << obj.getName() << ", bureaucrat grade " << obj.getGrade() << std::endl;
