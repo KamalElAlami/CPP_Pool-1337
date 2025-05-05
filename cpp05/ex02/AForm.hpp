@@ -1,5 +1,5 @@
-#ifndef FORM_HPP
-#define FORM_HPP
+#ifndef AFORM_HPP
+#define AFORM_HPP
 
 #include <iostream>
 #include <exception>
@@ -18,13 +18,17 @@ class AForm
 		AForm();
 		AForm(const std::string nm, int rGrade, int eGrade);
 		~AForm();
-		AForm(const AForm& obj);
+		AForm(const Form& obj);
 		AForm& operator=(const AForm& obj);
+
+		//getters
 		const std::string& getName(void) const;
 		const bool& getSign(void) const;
 		const int& getReGrade(void) const;
 		const int& getExeGrade(void) const;
+		//methods
 		void beSigned(const Bureaucrat& obj);
+		// exceptions 
 		class GradeTooHighException : public std::exception
 		{
 			const char* what() const throw();
@@ -33,7 +37,6 @@ class AForm
 		{
 			const char* what() const throw();
 		};
-		virtual void execute(Bureaucrat const & executor) const = 0;
 };
 
 std::ostream& operator<<(std::ostream& out, const AForm& obj);
