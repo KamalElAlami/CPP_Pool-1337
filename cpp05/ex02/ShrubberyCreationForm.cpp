@@ -26,7 +26,49 @@ const std::string& ShrubberyCreationForm::getTarget(void) const
 	return (target);
 }
 
+const char* ShrubberyCreationForm::FileException::what() const throw()
+{
+    return ("Error Occured While Opening The File");
+}
 void ShrubberyCreationForm::execute(Bureaucrat const& executor) const
 {
-	if ()
+	if (executor.getGrade() > this->getExeGrade())
+		throw AForm::GradeTooLowException();
+    else
+    {
+        std::ofstream shrub;
+        shrub.open(this->target + "_shrubbery", std::ios::out);
+        if (!shrub.is_open())
+            throw FileException();
+        shrub << "                                                            " << std::endl;
+        shrub << "                    @#*++*@%%      ##*++*%                  " << std::endl;
+        shrub << "                    *++++++++*++++#+++++++#                 " << std::endl;
+        shrub << "                  #*++++++++++++++++++++++***#@             " << std::endl;
+        shrub << "               #*++++*++++*+++++++++++++++++++@             " << std::endl;
+        shrub << "              #++++++++++++++++++++++++*+++++##             " << std::endl;
+        shrub << "            %##*+++++++++++++++++++++++*++++++++%           " << std::endl;
+        shrub << "           #++++++++++++++++++++++++++++++++++++*+*@        " << std::endl;
+        shrub << "          #++++++++++++++++++++++*++++++++++++**++***%      " << std::endl;
+        shrub << "          #+++++++++++++++++++++++*+***++++++++*++++++#     " << std::endl;
+        shrub << "      @*++++++++++++++++++++++++++*+++++++++++++*++++#      " << std::endl;
+        shrub << "     %++++++++++++++++++++++++****++++*++++*++**++++++%     " << std::endl;
+        shrub << "     #++++++*++++++++++++++++++++*+++*+****+++#*++++++%     " << std::endl;
+        shrub << "     #++++++++++++++++++++**#@@@*++++++++++++++++*+*#       " << std::endl;
+        shrub << "      #+**+++***++++++++++#++# @***%#++++++++++++##@        " << std::endl;
+        shrub << "      @++++++++++++++++* %*++*++*+*%%***+++++++++*          " << std::endl;
+        shrub << "      @+++++++++++++*#@## @+++**++#@%*%#**+++++++*          " << std::endl;
+        shrub << "        ###+++++++++++%#*****+++++% #**+++***+*##%          " << std::endl;
+        shrub << "          @*++++*@#%@   %*+*+++++*@###++++*+++*#            " << std::endl;
+        shrub << "                         %+*+++++*%#%  %#                   " << std::endl;
+        shrub << "                         @+*++***#@%                        " << std::endl;
+        shrub << "                         @**+*#+**@                         " << std::endl;
+        shrub << "                         @+*+****#%                         " << std::endl;
+        shrub << "                         %*+++****#@                        " << std::endl;
+        shrub << "                 %*=+%+*@##++++++#*% %*+% %*#               " << std::endl;
+        shrub << "              @#++*=-++***++++++++*#*++=---==+*%            " << std::endl;
+        shrub << "              ----*%*********++**+++++*%@                   " << std::endl;
+        shrub << "                            @@##*@@@%%%%%%@                 " << std::endl;
+        shrub << "                                                           " << std::endl; 
+    }
+	
 }

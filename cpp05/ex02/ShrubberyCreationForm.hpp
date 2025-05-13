@@ -17,11 +17,7 @@ class ShrubberyCreationForm : public AForm
 		ShrubberyCreationForm& operator=(const ShrubberyCreationForm& obj);
 		void execute(Bureaucrat const& executor) const;
 		const std::string& getTarget(void) const;
-		class FileOpenException : public std::exception
-		{
-			const char* what() const throw();
-		};
-		class TargetDoesntMeetRequirements : public std::exception
+		class FileException : public std::exception
 		{
 			const char* what() const throw();
 		};
