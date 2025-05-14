@@ -1,14 +1,14 @@
 #include "Bureaucrat.hpp"
-#include "Form.hpp"
+#include "AForm.hpp"
 
 Bureaucrat::Bureaucrat() : name("Unknown"), grade(150)
 {
 }
 Bureaucrat::Bureaucrat(std::string bname, int bgrade) : name(bname)
 {
-	if (bgrade <= 1)
+	if (bgrade <= 0)
 		throw GradeTooHighException();
-	else if (bgrade >= 150 )
+	else if (bgrade > 150 )
 		throw GradeTooLowException();
 	else
 		grade = bgrade;
@@ -63,7 +63,7 @@ void Bureaucrat::gradeDecrement(void)
 	grade++;
 }
 
-void Bureaucrat::signForm(Form &form)
+void Bureaucrat::signForm(AForm &form)
 {
 	try {
 		form.beSigned(*this);
