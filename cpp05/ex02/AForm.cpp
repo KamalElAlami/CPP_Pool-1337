@@ -58,6 +58,10 @@ const char* AForm::GradeTooLowException::what() const throw()
 {
     return ("GradeTooLowException");
 }
+const char* AForm::FormNotSignedException::what() const throw()
+{
+    return ("FormNotSignedException");
+}
 
 std::ostream& operator<<(std::ostream& out, const AForm& obj)
 {
