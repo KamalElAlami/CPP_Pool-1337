@@ -1,2 +1,0 @@
-check if signed 
-check grade and throw exceptions
