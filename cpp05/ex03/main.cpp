@@ -1,4 +1,8 @@
 #include "Bureaucrat.hpp"
+#include "AForm.hpp"
+#include "ShrubberyCreationForm.hpp"
+#include "RobotomyRequestForm.hpp"
+#include "PresidentialPardonForm.hpp"
 #include <iostream>
 
 int main()
@@ -64,27 +68,39 @@ int main()
         }
     }
     {
-        std::cout << "=== Other Tests ===" << std::endl;
+        std::cout << "=== Test shrub ===" << std::endl;
         try {
             Bureaucrat obj1 = Bureaucrat("L9ayeed", 8);
-            Bureaucrat obj2 = obj1;
-            Bureaucrat obj3 = Bureaucrat(obj1);
-            std::cout << obj1.getName() << std::endl; 
-            std::cout << obj2.getName() << std::endl; 
-            std::cout << obj3.getName() << std::endl; 
+            ShrubberyCreationForm obj2 = ShrubberyCreationForm("jerda");
+            obj1.signForm(obj2);
+            obj2.execute(obj1);
         }
         catch (const std::exception& e) {
             std::cout << e.what() << std::endl;
         }
     }
     {
-    std::cout << "=== OPERATOR<< TEST ===" << std::endl;
-    try {
-        Bureaucrat obj1("Hassan", 42);
-        std::cout << obj1;  // Should print: Hassan, bureaucrat grade 42
+        std::cout << "=== Test Pardon ===" << std::endl;
+        try {
+            Bureaucrat obj1 = Bureaucrat("L9ayeed", 5);
+            PresidentialPardonForm obj2 = PresidentialPardonForm("something");
+            obj1.signForm(obj2);
+            obj2.execute(obj1);
+        }
+        catch (const std::exception& e) {
+            std::cout << e.what() << std::endl;
+        }
     }
-    catch (const std::exception& e) {
-        std::cout << e.what() << std::endl;
+    {
+        std::cout << "=== Test Robotomy ===" << std::endl;
+        try {
+            Bureaucrat obj1 = Bureaucrat("L9ayeed", 8);
+            RobotomyRequestForm obj2 = RobotomyRequestForm("something");
+            obj1.signForm(obj2);
+            obj2.execute(obj1);
+        }
+        catch (const std::exception& e) {
+            std::cout << e.what() << std::endl;
+        }
     }
-}
 }

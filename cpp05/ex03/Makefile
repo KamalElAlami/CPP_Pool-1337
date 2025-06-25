@@ -1,10 +1,10 @@
-NAME = ex01
+NAME = ex02
 
 CC = c++
 CFLAGS = -Wall -Wextra -Werror -std=c++98
-HEADER = Bureaucrat.hpp Form.hpp
+HEADER = Bureaucrat.hpp AForm.hpp PresidentialPardonForm.hpp RobotomyRequestForm.hpp ShrubberyCreationForm.hpp
  
-SRC = main.cpp Bureaucrat.cpp Form.cpp
+SRC = main.cpp Bureaucrat.cpp AForm.cpp PresidentialPardonForm.cpp RobotomyRequestForm.cpp ShrubberyCreationForm.cpp
 
 OBJ = $(SRC:.cpp=.o)
 

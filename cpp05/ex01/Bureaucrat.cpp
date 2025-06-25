@@ -6,9 +6,9 @@ Bureaucrat::Bureaucrat() : name("Unknown"), grade(150)
 }
 Bureaucrat::Bureaucrat(std::string bname, int bgrade) : name(bname)
 {
-	if (bgrade <= 1)
+	if (bgrade <= 0)
 		throw GradeTooHighException();
-	else if (bgrade >= 150 )
+	else if (bgrade > 150 )
 		throw GradeTooLowException();
 	else
 		grade = bgrade;
@@ -52,13 +52,13 @@ const char* Bureaucrat::GradeTooLowException::what() const throw()
 
 void Bureaucrat::gradeIncrement(void)
 {
-	if (grade < 1)
+	if (grade <= 1)
 		throw GradeTooHighException();
 	grade--;
 }
 void Bureaucrat::gradeDecrement(void)
 {
-	if (grade > 150 )
+	if (grade >= 150 )
 		throw GradeTooLowException();
 	grade++;
 }
