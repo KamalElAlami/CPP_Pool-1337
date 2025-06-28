@@ -77,7 +77,12 @@ void Bureaucrat::signForm(AForm &form)
 
 void Bureaucrat::executeForm(AForm const & form)
 {
-	
+	if (!form.getSign())
+		throw AForm::FormNotSignedException();
+	if (this->getGrade() < form.getExeGrade())
+		throw AForm::GradeTooLowException();
+	form.execute(*this);
+	std::cout << this->getName() << " execute " << form.getName() << std::endl;
 }
 
 std::ostream& operator<<(std::ostream& out, const Bureaucrat& obj)
