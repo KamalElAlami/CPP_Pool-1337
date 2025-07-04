@@ -2,9 +2,10 @@
 
 Base * generate(void)
 {
+    static int helper = 0;
     int luckyNumber;
     Base *obj = NULL;
-    srand(time(NULL));
+    srand(time(NULL) + helper);
     luckyNumber = rand() % 3;
 
     switch (luckyNumber)
@@ -19,15 +20,16 @@ Base * generate(void)
             obj = new C();
             break ;
     }
+    helper++;
     return (obj);
 }
 void identify(Base* p)
 {
-    if (dynamic_cast<A*>(p) == NULL)
+    if (dynamic_cast<A*>(p) != NULL)
         std::cout << "A" << std::endl;
-    else if (dynamic_cast<B*>(p) == NULL)
+    else if (dynamic_cast<B*>(p) != NULL)
         std::cout << "B" << std::endl;
-    else if (dynamic_cast<C*>(p) == NULL)
+    else if (dynamic_cast<C*>(p) != NULL)
         std::cout << "C" << std::endl;
     else 
         std::cout << "Unknown" << std::endl;

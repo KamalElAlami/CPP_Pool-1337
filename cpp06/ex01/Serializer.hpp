@@ -2,7 +2,9 @@
 #define SERIALIZER_HPP
 
 #include <iostream>
-#include <cstdint>
+
+
+typedef unsigned long int uintptr_t;
 
 typedef struct
 {

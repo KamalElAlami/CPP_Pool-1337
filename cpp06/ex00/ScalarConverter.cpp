@@ -149,24 +149,5 @@ void ScalarConverter::convert(std::string input)
 
     type = whichType(input);
     ultimateCout(input, type);
-    // char *tracker;
-    // double res = std::strtod(input.c_str(), &tracker);
-
-    // printf("tracker = %d\n", *tracker);
-
-    // std::cout << "result = " << res << std::endl;
-    // if (std::isnan(res)) // CORRECT way to check for NaN
-    // {
-    //     std::cout << "sidko" << std::endl;
-    // }
-    // // You might also want to handle infinity
-    // else if (std::isinf(res)) // Optional: Check for infinity
-    // {
-    //     std::cout << "This is infinity!" << std::endl;
-    // }
-    // // float s = static_cast<float>(res);
-
-    // // long double res = LDBL_MAX;
-    // // std::cout << "defef" << std::endl;
 
 }
