@@ -2,9 +2,9 @@ NAME = ex01
 
 CC = c++
 CFLAGS = -Wall -Wextra -Werror -std=c++98
-HEADER = Serializer.hpp
+HEADER = Base.hpp
  
-SRC = main.cpp Serializer.cpp
+SRC = main.cpp Generation.cpp
 
 OBJ = $(SRC:.cpp=.o)
 

@@ -1,6 +1,4 @@
 #include "ScalarConverter.hpp"
-#include <cfloat> 
-#include <cmath>
 
 ScalarConverter::ScalarConverter()
 {
@@ -21,103 +19,154 @@ ScalarConverter& ScalarConverter::operator=(const ScalarConverter& obj)
     return (*this);
 }
 
-// static bool isInt(std::string input)
-// {
-//     size_t i = 0;
-//     if (input.empty())
-//         return (false);
-//     if (input[i] == '-' || input[i] == '+')
-//         i++;
-//     while (i < input.size())
-//     {
-//         if (!isdigit(input[i]))
-//             return (false);
-//         i++;
-//     }
-//     return (true);
-// }
+static bool isInt(std::string input)
+{
+    size_t i = 0;
+    if (input.empty())
+        return (false);
+    if (input[i] == '-' || input[i] == '+')
+        i++;
+    while (i < input.size())
+    {
+        if (!isdigit(input[i]))
+            return (false);
+        i++;
+    }
+    return (true);
+}
 
-// static bool isFloat(std::string input)
-// {
-//     size_t i = 0;
-//     if (input.empty())
-//         return (false);
-//     if (std::count(input.begin(), input.end(), '.') > 1
-//         || std::count(input.begin(), input.end(), '.') < 1)
-//         return (false);
-//     if (input[input.length() - 1] != 'f' || input[input.length() - 2] == '.')        
-//         return (false);
-//     if (input[i] == '-' || input[i] == '-')
-//         i++;
-//     if (input[i] == '.')
-//         return (false);
-//     while (i < (input.size() - 1))
-//     {
-//         if (!isdigit(input[i]) && input[i] != '.')
-//             return (false);
-//         i++;
-//     }
-//     return (true);
-// }
-// static bool isDouble(std::string input)
-// {
-//     size_t i = 0;
-//     if (input.empty())
-//         return (false);
-//     if (std::count(input.begin(), input.end(), '.') > 1
-//         || std::count(input.begin(), input.end(), '.') < 1)
-//         return (false);
-//     if (input[input.length() - 1] == '.')        
-//         return (false);
-//     if (input[i] == '-' || input[i] == '-')
-//         i++;
-//     if (input[i] == '.')
-//         return (false);
-//     while (i < (input.size() - 1))
-//     {
-//         if (!isdigit(input[i]) && input[i] != '.')
-//             return (false);
-//         i++;
-//     }
-//     return (true);
-// }
+static bool isFloat(std::string input)
+{
+    size_t i = 0;
+    if (input.empty())
+        return (false);
+    if (std::count(input.begin(), input.end(), '.') > 1
+        || std::count(input.begin(), input.end(), '.') < 1)
+        return (false);
+    if (input[input.length() - 1] != 'f')        
+        return (false);
+    if (input[i] == '-' || input[i] == '-')
+        i++;
+    while (i < (input.size() - 1))
+    {
+        if (!isdigit(input[i]) && input[i] != '.')
+            return (false);
+        i++;
+    }
+    return (true);
+}
+static bool isDouble(std::string input)
+{
+    size_t i = 0;
+    if (input.empty())
+        return (false);
+    if (std::count(input.begin(), input.end(), '.') > 1
+        || std::count(input.begin(), input.end(), '.') < 1)
+        return (false);
+    if (input[i] == '-' || input[i] == '-')
+        i++;
+    while (i < (input.size() - 1))
+    {
+        if (!isdigit(input[i]) && input[i] != '.')
+            return (false);
+        i++;
+    }
+    return (true);
+}
 
-// static bool is_displayable(std::string input)
-// {
-//     if (!input.empty() && input.size() == 1 && !isdigit(input[0]) &&
-//         (input[0] >= 32 && input[0] <= 126))
-//         return (true);
-//     return (false);
-// }
+static bool isDisplayable(double result)
+{
+    if (result >= 32 && result <= 126)
+        return (true);
+    return (false);
+}
 
-// static bool isChar(std::string input)
-// {
-//     if (!input.empty() && input.size() == 1 && !isdigit(input[0]))
-//         return (true);
-//     return (false);
-// }
-#include <cstdio>
+static bool isChar(std::string input)
+{
+    if (!input.empty() && input.size() == 1 && !isdigit(input[0]))
+        return (true);
+    return (false);
+}
+
+bool intOverflow(double f)
+{
+    if (f > std::numeric_limits<int>::max() || f < std::numeric_limits<int>::min())
+        return true;
+    return false;
+}
+
+bool charOverflow(double result)
+{
+    if (result > std::numeric_limits<char>::max() || result < std::numeric_limits<char>::min())
+        return true;
+    return false;
+}
+
+static Types whichType(std::string input)
+{
+    if (isInt(input))
+        return (INT);
+    else if (isChar(input))
+        return (CHAR);
+    else if (isDouble(input))
+        return (DOUBLE);
+    else if  (isFloat(input))
+        return (FLOAT);
+    else
+        return (UNKNOWN);
+}
+
+static void ultimateCout(std::string input, Types type)
+{
+    char *track;
+    double result = std::strtod(input.c_str(), &track);
+    std::string tracker = track;
+
+    if ((type == UNKNOWN && (!std::isnan(result) && !std::isinf(result))))
+        std::cout << "char: Impossible" << std::endl << "int: Impossible" <<
+        std::endl << "float: Impossible" << std::endl << "double: Impossible" << std::endl;
+    else
+    {
+        if (isDisplayable(result))
+            std::cout << "char: " << static_cast<char>(result) << std::endl;
+        else if (charOverflow(result) || std::isinf(result) || std::isnan(result))
+            std::cout << "char: impossible" << std::endl;
+        else
+            std::cout << "char: Non displayable" << std::endl;
+        if (!intOverflow(result) && !std::isnan(result) && !std::isinf(result))
+            std::cout << "int: " << static_cast<int>(result) << std::endl;
+        else
+            std::cout << "int: Impossible" << std::endl;
+        std::cout << std::fixed << std::setprecision(1) <<"float: " << static_cast<float>(result) << "f" << std::endl;
+        std::cout << "double: " << static_cast<double>(result) << std::endl;
+    }
+
+}
 
 void ScalarConverter::convert(std::string input)
 {
-    char *tracker;
-    double res = std::strtod(input.c_str(), &tracker);
+    Types type;
 
-    printf("tracker = %d\n", *tracker);
+    type = whichType(input);
+    ultimateCout(input, type);
+    // char *tracker;
+    // double res = std::strtod(input.c_str(), &tracker);
 
-    std::cout << "result = " << res << std::endl;
-    if (std::isnan(res)) // CORRECT way to check for NaN
-    {
-        std::cout << "sidko" << std::endl;
-    }
-    // You might also want to handle infinity
-    else if (std::isinf(res)) // Optional: Check for infinity
-    {
-        std::cout << "This is infinity!" << std::endl;
-    }
-    // float s = static_cast<float>(res);
+    // printf("tracker = %d\n", *tracker);
 
-    // long double res = LDBL_MAX;
-    // std::cout << "defef" << std::endl;
+    // std::cout << "result = " << res << std::endl;
+    // if (std::isnan(res)) // CORRECT way to check for NaN
+    // {
+    //     std::cout << "sidko" << std::endl;
+    // }
+    // // You might also want to handle infinity
+    // else if (std::isinf(res)) // Optional: Check for infinity
+    // {
+    //     std::cout << "This is infinity!" << std::endl;
+    // }
+    // // float s = static_cast<float>(res);
+
+    // // long double res = LDBL_MAX;
+    // // std::cout << "defef" << std::endl;
 
 }

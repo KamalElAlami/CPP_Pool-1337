@@ -4,8 +4,6 @@
 #include <iostream>
 #include <cstdint>
 
-// typedef unsigned int		uintptr_t;
-
 typedef struct
 {
     int id;
