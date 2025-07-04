@@ -119,9 +119,12 @@ static Types whichType(std::string input)
 static void ultimateCout(std::string input, Types type)
 {
     char *track;
-    double result = std::strtod(input.c_str(), &track);
     std::string tracker = track;
-
+    double result;
+    if (type == CHAR && input.size() == 1)
+        result = static_cast<double>(input[0]);
+    else
+        result = std::strtod(input.c_str(), &track);
     if ((type == UNKNOWN && (!std::isnan(result) && !std::isinf(result))))
         std::cout << "char: Impossible" << std::endl << "int: Impossible" <<
         std::endl << "float: Impossible" << std::endl << "double: Impossible" << std::endl;
