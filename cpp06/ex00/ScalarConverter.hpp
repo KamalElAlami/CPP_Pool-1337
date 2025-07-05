@@ -8,7 +8,6 @@
 #include <cmath>
 #include <iomanip>
 #include <limits>
-#include <cstdio>
 
 typedef enum {
     CHAR,

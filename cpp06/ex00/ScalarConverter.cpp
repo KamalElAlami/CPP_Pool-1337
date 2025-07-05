@@ -116,41 +116,49 @@ static Types whichType(std::string input)
         return (UNKNOWN);
 }
 
-static void ultimateCout(std::string input, Types type)
+bool ft_isinf(double x)
 {
-    char *track;
+    if (x == (1.0 / 0.0) || x == (-1.0 / 0.0))
+        return (true);
+    return (false);
+}
+
+bool ft_isnan(double x)
+{
+    if (x != x)
+        return (true);
+    return (false);
+}
+
+void ScalarConverter::convert(std::string input)
+{
+    Types type;
+    char *track = NULL;
+
+    type = whichType(input);
     std::string tracker = track;
     double result;
     if (type == CHAR && input.size() == 1)
         result = static_cast<double>(input[0]);
     else
         result = std::strtod(input.c_str(), &track);
-    if ((type == UNKNOWN && (!std::isnan(result) && !std::isinf(result))))
+    if ((type == UNKNOWN && (!ft_isnan(result) && !ft_isinf(result))))
         std::cout << "char: Impossible" << std::endl << "int: Impossible" <<
         std::endl << "float: Impossible" << std::endl << "double: Impossible" << std::endl;
     else
     {
         if (isDisplayable(result))
             std::cout << "char: " << static_cast<char>(result) << std::endl;
-        else if (charOverflow(result) || std::isinf(result) || std::isnan(result))
+        else if (charOverflow(result) || ft_isnan(result) || ft_isinf(result))
             std::cout << "char: impossible" << std::endl;
         else
             std::cout << "char: Non displayable" << std::endl;
-        if (!intOverflow(result) && !std::isnan(result) && !std::isinf(result))
+        if (!intOverflow(result) && !ft_isnan(result) && !ft_isinf(result))
             std::cout << "int: " << static_cast<int>(result) << std::endl;
         else
             std::cout << "int: Impossible" << std::endl;
         std::cout << std::fixed << std::setprecision(1) <<"float: " << static_cast<float>(result) << "f" << std::endl;
         std::cout << "double: " << static_cast<double>(result) << std::endl;
     }
-
-}
-
-void ScalarConverter::convert(std::string input)
-{
-    Types type;
-
-    type = whichType(input);
-    ultimateCout(input, type);
 
 }
