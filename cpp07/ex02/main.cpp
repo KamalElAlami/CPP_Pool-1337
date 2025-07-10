@@ -13,7 +13,13 @@ int main(int, char**)
         numbers[i] = value;
         mirror[i] = value;
     }
-    //SCOPE
+    // {
+    //     for (int i = 0; i < MAX_VAL; i++)
+    //     {
+    //         std::cout << "numbers :" << numbers[i] << std::endl;
+    //         std::cout << "mirror :" << mirror[i] << std::endl;
+    //     }
+    // }
     {
         Array<int> tmp = numbers;
         Array<int> test(tmp);
@@ -48,6 +54,6 @@ int main(int, char**)
     {
         numbers[i] = rand();
     }
-    delete [] mirror;//
+    delete [] mirror;
     return 0;
 }

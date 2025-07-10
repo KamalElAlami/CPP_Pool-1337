@@ -20,9 +20,17 @@ class Array
         }
         Array(const Array& obj)
         {
-            *this = obj;
+            if (this != &obj)
+            {
+                this->lenght = obj.lenght;
+                this->array = new T[lenght];
+                for (size_t i = 0; i < lenght; i++)
+                {
+                    this->array[i] = obj.array[i];
+                }
+            }
         }
-        const Array& operator=(const Array& obj) 
+        Array& operator=(const Array& obj) 
         {
             if (this != &obj)
             {
