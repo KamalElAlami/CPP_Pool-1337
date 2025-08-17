@@ -1,18 +1,33 @@
 #include "BitcoinExchange.hpp"
 
+std::string* ft_split(const std::string& str, char c)
+{
+    size_t start = 0, end = 0;
+    int count = 0;
+
+    while ((end = str.find(c, start)) != std::string::npos) {
+        count++;
+        start = end + 1;
+    }
+    count++;
+    
+    std::string* words = new std::string[count + 1];
+    
+    start = 0;
+    int index = 0;
+    while ((end = str.find(c, start)) != std::string::npos) {
+        words[index] = str.substr(start, end - start);
+        start = end + 1;
+        index++;
+    }
+    words[index] = str.substr(start); 
+    words[index + 1] = "";
+    return (words);
+}
+
 static bool validate_date(std::string date)
 {
-    size_t start = 0, end = 0, counter = 0;
-    std::string datee[3];
-    while ((end = date.find('-', start)) != std::string::npos)
-    {
-        datee[counter] = date.substr(start, end - start);
-        start = end + 1;
-        counter += 1;
-    }
-    datee[counter] = date.substr(start);
-    for (int i  = 0; i < 3; i++)
-        std::cout << datee[i] << std::endl;
+    std::string 
     return (true);
 }
 
@@ -27,6 +42,7 @@ bitcoinExchange::bitcoinExchange(std::string file)
     std::string line;
     while (getline(dFile, line))
     {
-        validate_date(line);
+        std::string *splited = ft_split(line, ',');
+        validate_date(splited[0]);
     }
 }
