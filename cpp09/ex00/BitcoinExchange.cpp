@@ -25,12 +25,6 @@ std::string* ft_split(const std::string& str, char c)
     return (words);
 }
 
-static bool validate_date(std::string date)
-{
-    std::string 
-    return (true);
-}
-
 bitcoinExchange::bitcoinExchange(std::string file)
 {
     rFile.open(file);
@@ -43,6 +37,8 @@ bitcoinExchange::bitcoinExchange(std::string file)
     while (getline(dFile, line))
     {
         std::string *splited = ft_split(line, ',');
-        validate_date(splited[0]);
+        Data.insert(std::make_pair(splited[0], strtod(splited[1].c_str(), NULL)));
     }
+    // for (std::map<std::string, double>::iterator it = Data.begin(); it != Data.end(); ++it)
+    //     std::cout << it->first << " | " << it ->second << std::endl;
 }
