@@ -1,0 +1,2 @@
+- [ ] check other cases 
+- [ ] skip first line of the input.txt 

@@ -1,28 +1,34 @@
 #include "BitcoinExchange.hpp"
+    // for (std::map<long int, double>::iterator it = Data.begin(); it != Data.end(); ++it)
+    //     std::cout << it->first << " | " << it ->second << std::endl;
 
-std::string* ft_split(const std::string& str, char c)
+static bool validateDate(std::string date)
 {
-    size_t start = 0, end = 0;
     int count = 0;
-
-    while ((end = str.find(c, start)) != std::string::npos) {
+    std::string *splited = ft_split(date, '-');
+    while (!splited[count].empty())
         count++;
-        start = end + 1;
-    }
-    count++;
-    
-    std::string* words = new std::string[count + 1];
-    
-    start = 0;
-    int index = 0;
-    while ((end = str.find(c, start)) != std::string::npos) {
-        words[index] = str.substr(start, end - start);
-        start = end + 1;
-        index++;
-    }
-    words[index] = str.substr(start); 
-    words[index + 1] = "";
-    return (words);
+    if (count != 3)
+        return (false);
+    for (int i = 0; !splited[i].empty(); i++)
+        for (int j = 0; splited[i][j]; j++)
+            if (!isdigit(splited[i][j]))
+                return (false);
+    if (atoi(splited[0].c_str()) < 2009 || atoi(splited[0].c_str()) > INT_MAX || (atoi(splited[1].c_str()) < 1 || atoi(splited[1].c_str()) > 12) || (atoi(splited[2].c_str()) < 1 || atoi(splited[2].c_str()) > 31))
+        return (false);
+    return (true);
+}
+static bool validateValue(std::string value)
+{
+    char* track = NULL;
+    double newVal = strtod(value.c_str(), &track);
+    if (*track != '\0')
+        throw std::runtime_error("Error: value is not a number.");
+    if (newVal > INT_MAX)
+            throw std::runtime_error("Error: too large a number.");
+    if (newVal < 0 )
+            throw std::runtime_error("Error: not a positive number.");
+    return (true);
 }
 
 bitcoinExchange::bitcoinExchange(std::string file)
@@ -37,8 +43,37 @@ bitcoinExchange::bitcoinExchange(std::string file)
     while (getline(dFile, line))
     {
         std::string *splited = ft_split(line, ',');
-        Data.insert(std::make_pair(splited[0], strtod(splited[1].c_str(), NULL)));
+        eraseFromString(&splited[0], '-');
+        Data.insert(std::make_pair(atoi(splited[0].c_str()), strtod(splited[1].c_str(), NULL)));
     }
-    // for (std::map<std::string, double>::iterator it = Data.begin(); it != Data.end(); ++it)
-    //     std::cout << it->first << " | " << it ->second << std::endl;
+    dFile.close();
+}
+void bitcoinExchange::run()
+{
+    std::string line;
+    while (getline(rFile, line))
+    {
+        std::string *splited = ft_split(line, '|');
+        eraseFromString(&splited[0], ' ');
+        eraseFromString(&splited[1], ' ');
+        try{
+            if (!validateDate(splited[0]))
+                throw std::runtime_error("Error: bad input => " + splited[0]);
+            if (validateValue(splited[1]))
+            {
+                std::string formatedDate = splited[0];
+                eraseFromString(&splited[0], '-');
+                long int searchDate = atoi(splited[0].c_str());
+                std::map<long int, double>::iterator it = Data.lower_bound(searchDate);
+                if (it->first != searchDate)
+                    --it;
+                std::cout << formatedDate << " => " << splited[1] << " = " << strtod(splited[1].c_str(), NULL) * it->second << std::endl;
+            }
+        }
+        catch (const std::runtime_error &e)
+        {
+            std::cout << e.what() << std::endl;
+        }
+        
+    }
 }

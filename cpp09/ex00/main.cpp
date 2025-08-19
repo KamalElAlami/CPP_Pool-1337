@@ -4,5 +4,12 @@
 int main(int ac, char **av)
 {
     (void)ac;
-    bitcoinExchange obj(av[1]);
+    try{
+        bitcoinExchange obj(av[1]);
+        obj.run();
+    }
+    catch (const std::runtime_error &e)
+    {
+        std::cout << e.what() << std::endl;
+    }
 }

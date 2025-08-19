@@ -2,9 +2,9 @@ NAME = btc
 
 CC = c++
 CFLAGS = -Wall -Wextra -Werror -std=c++98 -fsanitize=address
-HEADER = BitcoinExchange.hpp
+HEADER = RPN.hpp
  
-SRC = main.cpp BitcoinExchange.cpp Utils.cpp
+SRC = main.cpp RPN.cpp 
 
 OBJ = $(SRC:.cpp=.o)
 
