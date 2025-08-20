@@ -15,6 +15,7 @@ class bitcoinExchange
         std::fstream rFile;
     public :
         bitcoinExchange(std::string file);
+        ~bitcoinExchange();
         void run();
 };
 

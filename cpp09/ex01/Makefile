@@ -1,10 +1,10 @@
-NAME = btc
+NAME = RPN
 
 CC = c++
 CFLAGS = -Wall -Wextra -Werror -std=c++98 -fsanitize=address
 HEADER = RPN.hpp
  
-SRC = main.cpp RPN.cpp 
+SRC = main.cpp RPN.cpp Utils.cpp
 
 OBJ = $(SRC:.cpp=.o)
 

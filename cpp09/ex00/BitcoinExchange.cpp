@@ -1,6 +1,4 @@
 #include "BitcoinExchange.hpp"
-    // for (std::map<long int, double>::iterator it = Data.begin(); it != Data.end(); ++it)
-    //     std::cout << it->first << " | " << it ->second << std::endl;
 
 static bool validateDate(std::string date)
 {
@@ -14,8 +12,10 @@ static bool validateDate(std::string date)
         for (int j = 0; splited[i][j]; j++)
             if (!isdigit(splited[i][j]))
                 return (false);
-    if (atoi(splited[0].c_str()) < 2009 || atoi(splited[0].c_str()) > INT_MAX || (atoi(splited[1].c_str()) < 1 || atoi(splited[1].c_str()) > 12) || (atoi(splited[2].c_str()) < 1 || atoi(splited[2].c_str()) > 31))
+    if (atoi(splited[0].c_str()) > INT_MAX || atoi(splited[1].c_str()) < 1 || atoi(splited[1].c_str()) > 12 || atoi(splited[2].c_str()) < 1 || atoi(splited[2].c_str()) > 31)
         return (false);
+    if (atoi(splited[0].c_str()) < 2009 || (atoi(splited[0].c_str()) == 2009 && atoi(splited[2].c_str()) < 2))
+        throw std::runtime_error("Error: date is too old");
     return (true);
 }
 static bool validateValue(std::string value)
@@ -43,10 +43,22 @@ bitcoinExchange::bitcoinExchange(std::string file)
     while (getline(dFile, line))
     {
         std::string *splited = ft_split(line, ',');
+        if (splited[0] == "date")
+            continue;
         eraseFromString(&splited[0], '-');
         Data.insert(std::make_pair(atoi(splited[0].c_str()), strtod(splited[1].c_str(), NULL)));
     }
     dFile.close();
+}
+bool validateLineSyntax(std::string str)
+{
+    int count = 0;
+    std::string::size_type pos = str.find('|');
+    while ((pos = str.find('|', pos)) != std::string::npos)
+        count++, pos++;
+    if (count != 1)
+        return (false);
+    return (true);
 }
 void bitcoinExchange::run()
 {
@@ -56,7 +68,11 @@ void bitcoinExchange::run()
         std::string *splited = ft_split(line, '|');
         eraseFromString(&splited[0], ' ');
         eraseFromString(&splited[1], ' ');
+        if (splited[0] == "date")
+            continue;
         try{
+            if (!validateLineSyntax(line))
+                throw std::runtime_error("Error: invalid delimiter syntax");
             if (!validateDate(splited[0]))
                 throw std::runtime_error("Error: bad input => " + splited[0]);
             if (validateValue(splited[1]))
@@ -64,9 +80,9 @@ void bitcoinExchange::run()
                 std::string formatedDate = splited[0];
                 eraseFromString(&splited[0], '-');
                 long int searchDate = atoi(splited[0].c_str());
-                std::map<long int, double>::iterator it = Data.lower_bound(searchDate);
-                if (it->first != searchDate)
-                    --it;
+                std::map<long int, double>::iterator it = Data.lower_bound(searchDate); 
+                if (it->first != searchDate && it != Data.begin())
+                    --it; 
                 std::cout << formatedDate << " => " << splited[1] << " = " << strtod(splited[1].c_str(), NULL) * it->second << std::endl;
             }
         }
@@ -74,6 +90,10 @@ void bitcoinExchange::run()
         {
             std::cout << e.what() << std::endl;
         }
-        
     }
+}
+
+bitcoinExchange::~bitcoinExchange()
+{
+    rFile.close();
 }

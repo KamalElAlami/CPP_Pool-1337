@@ -1,2 +1,3 @@
-- [ ] check other cases 
-- [ ] skip first line of the input.txt 
+- [x] check other cases 
+- [x] skip first line of the input.txt 
+- [ ] leakss from split
