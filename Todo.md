@@ -1,3 +1,31 @@
 - [x] check other cases 
 - [x] skip first line of the input.txt 
-- [ ] leakss from split
+- [x] leakss from split
+- [ ] throw error when space between numbers btc
+- [ ] rpn crash when 2 3 ++
+  
+# Ford-Johnson Algorithm
+
+## What is Ford-Johnson Algorithm
+Ford-Johnson or merge-insertion sort Algorithm is a Comparison algorithm that is uses fewer comparisons in the worst case
+
+## How Ford-Johnson Does its work
+**Step I: Pair & Sort**
+
+- Make Pairs From Your Numbers
+- Sort each pair (big number to the right)
+- if odd number left remains alone
+- This Step Should Be recursive (pair, pair of pairs, etc..)
+
+**Step II: Make 2 Lists**
+
+- **Main Chain**: smallest from first pair + all the big numbers
+- **Pend**: all the small numbers left + odd number
+  
+**Step III: Insert Back**
+
+- Take numbers From pend
+- Insert them into main using binary search
+- Use Jacobsthal Sequence
+
+

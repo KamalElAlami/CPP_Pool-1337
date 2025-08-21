@@ -6,6 +6,8 @@
 #include <algorithm>
 #include <map>
 #include <exception>
+#include <iomanip>
+
 
 
 class bitcoinExchange

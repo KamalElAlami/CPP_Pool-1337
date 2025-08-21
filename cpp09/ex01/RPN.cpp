@@ -14,10 +14,10 @@ int doOp(int a, int b, std::string element)
         return (a + b);
     if (element[0] == '-')
         return (a - b);
-    if (element[0] == '*')
-        return (a * b);
-    else
+    if (element[0] == '/' && b > 0)
         return (a / b);
+    else
+        return (a * b);
 }
 
 void performRPN(std::string args)

@@ -1,9 +1,9 @@
 #include "BitcoinExchange.hpp"
 
-
 int main(int ac, char **av)
 {
-    (void)ac;
+    if (ac != 2)
+        return (1);
     try{
         bitcoinExchange obj(av[1]);
         obj.run();

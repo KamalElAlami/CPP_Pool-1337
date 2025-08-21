@@ -7,16 +7,19 @@ static bool validateDate(std::string date)
     while (!splited[count].empty())
         count++;
     if (count != 3)
-        return (false);
+        return (delete[] splited, false);
     for (int i = 0; !splited[i].empty(); i++)
         for (int j = 0; splited[i][j]; j++)
             if (!isdigit(splited[i][j]))
-                return (false);
-    if (atoi(splited[0].c_str()) > INT_MAX || atoi(splited[1].c_str()) < 1 || atoi(splited[1].c_str()) > 12 || atoi(splited[2].c_str()) < 1 || atoi(splited[2].c_str()) > 31)
-        return (false);
+                return (delete[] splited, false);
+    if (strtod(splited[0].c_str(), NULL) > INT_MAX || atoi(splited[1].c_str()) < 1 || atoi(splited[1].c_str()) > 12 || atoi(splited[2].c_str()) < 1 || atoi(splited[2].c_str()) > 31)
+        return (delete[] splited, false);
     if (atoi(splited[0].c_str()) < 2009 || (atoi(splited[0].c_str()) == 2009 && atoi(splited[2].c_str()) < 2))
+    {
+        delete[] splited;
         throw std::runtime_error("Error: date is too old");
-    return (true);
+    }
+    return (delete[] splited, true);
 }
 static bool validateValue(std::string value)
 {
@@ -44,9 +47,13 @@ bitcoinExchange::bitcoinExchange(std::string file)
     {
         std::string *splited = ft_split(line, ',');
         if (splited[0] == "date")
+        {
+            delete[] splited;
             continue;
+        }
         eraseFromString(&splited[0], '-');
         Data.insert(std::make_pair(atoi(splited[0].c_str()), strtod(splited[1].c_str(), NULL)));
+        delete[] splited;
     }
     dFile.close();
 }
@@ -69,7 +76,10 @@ void bitcoinExchange::run()
         eraseFromString(&splited[0], ' ');
         eraseFromString(&splited[1], ' ');
         if (splited[0] == "date")
+        {
+            delete[] splited;
             continue;
+        }
         try{
             if (!validateLineSyntax(line))
                 throw std::runtime_error("Error: invalid delimiter syntax");
@@ -84,10 +94,12 @@ void bitcoinExchange::run()
                 if (it->first != searchDate && it != Data.begin())
                     --it; 
                 std::cout << formatedDate << " => " << splited[1] << " = " << strtod(splited[1].c_str(), NULL) * it->second << std::endl;
+                delete[] splited;
             }
         }
         catch (const std::runtime_error &e)
         {
+            delete[] splited;
             std::cout << e.what() << std::endl;
         }
     }
