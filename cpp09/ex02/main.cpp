@@ -1,21 +1,47 @@
 #include "PmergeMe.hpp"
 
-void makePairs(std::vector<int>& vec) {
-    std::cout << "Before: ";
+
+int binarySearch(std::vector<int> vec, int start, int end, int x)
+{
+    if (start > end)
+        return (start);
+    int mid = (start + end) / 2;                                                                                      
+    if (vec[mid] == x)
+        return (mid);
+    if (vec[mid] > x)
+        return (binarySearch(vec, start, mid -1, x));
+    else 
+        return (binarySearch(vec, mid + 1, end, x));
+}
+
+void createMainAndPend(std::vector<int>& vec, std::vector<int>& main, std::vector<int>& pend)
+{    
     for (size_t i = 0; i < vec.size(); i++)
-        std::cout << vec[i] << " ";
-    std::cout << std::endl;
-    
+    {
+        if (!i)
+        {
+            main.push_back(vec[1]);
+            main.push_back(vec[0]);
+            i += 2;
+        }
+        if (i % 2 == 0)
+            main.push_back(vec[i]);
+        else
+            pend.push_back(vec[i]);
+    }
+}
+
+void makePairs(std::vector<int>& vec)
+{
+    std::vector<int> main;
+    std::vector<int> pend;
     for (size_t i = 0; i < vec.size() - 1 ; i += 2)
     {
         if (vec[i] < vec[i + 1])
             std::swap(vec[i], vec[i + 1]);
     }
-    
-    std::cout << "After: ";
-    for (size_t i = 0; i < vec.size(); i++)
-        std::cout << vec[i] << " ";
-    std::cout << std::endl;
+    createMainAndPend(vec, main, pend);
+    std::cout << binarySearch(main, 0, main.size(), 9) << std::endl;
 }
 
 int main(int ac, char **av)
