@@ -4,7 +4,7 @@ CC = c++
 CFLAGS = -Wall -Wextra -Werror -std=c++98 -fsanitize=address
 HEADER = PmergeMe.hpp
  
-SRC = main.cpp PmergeMe.cpp
+SRC = main.cpp PmergeMe.cpp PmergeMeDeque.cpp
 
 OBJ = $(SRC:.cpp=.o)
 

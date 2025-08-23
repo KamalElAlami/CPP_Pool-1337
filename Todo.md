@@ -3,6 +3,7 @@
 - [x] leakss from split
 - [ ] throw error when space between numbers btc
 - [ ] rpn crash when 2 3 ++
+- [ ] pmergeme segv in one number and it doesnt sort 3 numbers that is sorted in descending order
   
 # Ford-Johnson Algorithm
 

@@ -1,8 +1,8 @@
 #include "PmergeMe.hpp"
 
-std::vector<int> parseArgsVector(char **av)
+std::deque<int> parseArgsDeque(char **av)
 {
-    std::vector<int> container;
+    std::deque<int> container;
     for (int i = 1; av[i]; i++)
     {
         bool flag =  true;
@@ -20,25 +20,9 @@ std::vector<int> parseArgsVector(char **av)
     return (container);
 }
 
-int jacobsthal_Sequence(int n)
+std::deque<long> getJacIndexDeque(int size)
 {
-    if (n == 0)
-        return (0);
-    if (n == 1)
-        return (1);
-    long pre2 = 0, pre1 = 1, current;
-    for (int i = 2; i <= n; i++)
-    {
-        current = pre1 + 2 * pre2;
-        pre2 =  pre1;
-        pre1 = current;
-    }
-    return (current);
-}
-
-std::vector<long> getJacIndex(int size)
-{
-    std::vector<long> seq;
+    std::deque<long> seq;
     seq.push_back(0);
     seq.push_back(1);
     if (size <= 2)
@@ -52,7 +36,7 @@ std::vector<long> getJacIndex(int size)
         seq.push_back(tmp);
         i++;
     }
-    std::vector<long> remaining;
+    std::deque<long> remaining;
     for (int i = 0; i < size; i++)
     {
         bool found = false;
@@ -71,7 +55,7 @@ std::vector<long> getJacIndex(int size)
         seq.push_back(remaining[i]);
     return (seq);
 }
-int binarySearch(std::vector<int> vec, int start, int end, int x)
+int binarySearchDeque(std::deque<int> vec, int start, int end, int x)
 {
     if (start > end)
         return (start);
@@ -79,12 +63,12 @@ int binarySearch(std::vector<int> vec, int start, int end, int x)
     if (vec[mid] < x && (mid + 1 >= (int)vec.size() || vec[mid + 1] > x)) // check bounds or check next
         return (mid + 1);
     if (vec[mid] > x)
-        return (binarySearch(vec, start, mid -1, x));
+        return (binarySearchDeque(vec, start, mid -1, x));
     else 
-        return (binarySearch(vec, mid + 1, end, x));
+        return (binarySearchDeque(vec, mid + 1, end, x));
 }
 
-void createMainAndPend(std::vector<std::pair<int, int> >& vec, std::vector<int>& main, std::vector<int>& pend, int remainder)
+void createMainAndPendDeque(std::deque<std::pair<int, int> >& vec, std::deque<int>& main, std::deque<int>& pend, int remainder)
 {
     for (size_t i = 0; i < vec.size(); i++)
     {
@@ -99,27 +83,28 @@ void createMainAndPend(std::vector<std::pair<int, int> >& vec, std::vector<int>&
             pend.push_back(vec[i].second);
         }
     }
-    std::vector<long> seq = getJacIndex(pend.size());
+    std::deque<long> seq = getJacIndexDeque(pend.size());
     for (size_t i = 0; i < seq.size(); i++)
     {
-        int index = binarySearch(main, 0, main.size() - 1, pend[seq[i]]);
+        int index = binarySearchDeque(main, 0, main.size() - 1, pend[seq[i]]);
         main.insert(main.begin() + index, pend[seq[i]]);
     }
     if (remainder != -1)
-        main.insert(main.begin() + binarySearch(main, 0, main.size() - 1, remainder), remainder);
+        main.insert(main.begin() + binarySearchDeque(main, 0, main.size() - 1, remainder), remainder);
 
 }
 
-void sortWithVector(std::vector<int>& vec)
+
+void sortWithDeque(std::deque<int>& vec)
 {
-    std::vector<std::pair<int, int> > pairs;
-    std::vector<int> main;
-    std::vector<int> pend;
+    std::deque<std::pair<int, int> > pairs;
+    std::deque<int> main;
+    std::deque<int> pend;
     int remainder = (vec.size() % 2 == 1) ? vec[vec.size() - 1] : -1;
     for (size_t i = 0; i < vec.size() - 1; i += 2)
             pairs.push_back(std::make_pair(std::max(vec[i], vec[i + 1]), std::min(vec[i], vec[i + 1])));
     std::sort(pairs.begin(), pairs.end());
-    createMainAndPend(pairs, main, pend, remainder);
+    createMainAndPendDeque(pairs, main, pend, remainder);
     std::cout << "Before: ";
     printList(vec);
     std::cout << "After: ";
