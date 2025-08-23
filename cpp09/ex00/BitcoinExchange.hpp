@@ -13,7 +13,7 @@
 class bitcoinExchange
 {
     private :
-        std::map<long int, double> Data;
+        std::map<unsigned long long int, double> Data;
         std::fstream rFile;
     public :
         bitcoinExchange(std::string file);

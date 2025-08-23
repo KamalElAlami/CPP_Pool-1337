@@ -86,25 +86,27 @@ int binarySearch(std::vector<int> vec, int start, int end, int x)
 
 void createMainAndPend(std::vector<std::pair<int, int> >& vec, std::vector<int>& main, std::vector<int>& pend, int remainder)
 {
-    for (size_t i = 0; i < vec.size(); i++)
+    main.push_back(vec[0].second);
+    main.push_back(vec[0].first);
+    for (size_t i = 1; i < vec.size(); i++)
     {
-        if (!i)
-        {
-            main.push_back(vec[i].second);
-            main.push_back(vec[i].first);
-        }
-        else
-        {
-            main.push_back(vec[i].first);
-            pend.push_back(vec[i].second);
-        }
+        main.push_back(vec[i].first);
+        pend.push_back(vec[i].second);
     }
     std::vector<long> seq = getJacIndex(pend.size());
-    for (size_t i = 0; i < seq.size(); i++)
+    
+    if (!pend.empty())
     {
-        int index = binarySearch(main, 0, main.size() - 1, pend[seq[i]]);
-        main.insert(main.begin() + index, pend[seq[i]]);
+        for (size_t i = 0; i < seq.size(); i++)
+        {
+            int index = binarySearch(main, 0, main.size() - 1, pend[seq[i]]);
+            if ((size_t)index < main.size())
+                main.insert(main.begin() + index, pend[seq[i]]);
+            else
+                main.insert(main.end(), pend[seq[i]]);
+        }
     }
+
     if (remainder != -1)
         main.insert(main.begin() + binarySearch(main, 0, main.size() - 1, remainder), remainder);
 

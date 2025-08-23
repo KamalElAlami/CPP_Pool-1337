@@ -89,8 +89,9 @@ void bitcoinExchange::run()
             {
                 std::string formatedDate = splited[0];
                 eraseFromString(&splited[0], '-');
-                long int searchDate = atoi(splited[0].c_str());
-                std::map<long int, double>::iterator it = Data.lower_bound(searchDate); 
+                unsigned long long int searchDate = atoi(splited[0].c_str());
+                std::cout << searchDate << std::endl;
+                std::map<unsigned long long int, double>::iterator it = Data.lower_bound(searchDate); 
                 if (it->first != searchDate && it != Data.begin())
                     --it; 
                 std::cout << formatedDate << " => " << splited[1] << " = " << strtod(splited[1].c_str(), NULL) * it->second << std::endl;
