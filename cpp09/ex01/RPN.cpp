@@ -32,14 +32,18 @@ void performRPN(std::string args)
         std::string element = dd[i];
         if ( element.size() == 1 && (element[0] == '+' || element[0] == '*' || element[0] == '-' || element[0] == '/'))
         {
-            int b = opStack.top();
-            opStack.pop();
-            int a  = opStack.top();
-            opStack.pop();
-            opStack.push(doOp(a, b, element));
+            if (opStack.size() > 1)
+            {
+                int b = opStack.top();
+                opStack.pop();
+                int a  = opStack.top();
+                opStack.pop();
+                opStack.push(doOp(a, b, element));
+            }
         }
         else
             opStack.push(atoi(element.c_str()));
     }
+    delete[] dd;
     std::cout << opStack.top() << std::endl;
 }

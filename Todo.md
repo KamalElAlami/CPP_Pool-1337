@@ -1,9 +1,9 @@
 - [x] check other cases 
 - [x] skip first line of the input.txt 
 - [x] leakss from split
-- [ ] throw error when space between numbers btc
-- [ ] rpn crash when 2 3 ++
-- [ ] pmergeme segv in one number and it doesnt sort 3 numbers that is sorted in descending order
+- [x] throw error when space between numbers btc
+- [x] rpn crash when 2 3 ++
+- [x] pmergeme segv in one number and it doesnt sort 3 numbers that is sorted in descending order
 - [ ] parsing error when you give all numbers in one arg
   
 # Ford-Johnson Algorithm

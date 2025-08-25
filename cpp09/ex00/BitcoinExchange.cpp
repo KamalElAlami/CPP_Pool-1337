@@ -1,10 +1,24 @@
 #include "BitcoinExchange.hpp"
 
+static std::string to_string_no_sci(double x, int prec) {
+    std::ostringstream oss;
+    oss.setf(std::ios::fixed, std::ios::floatfield);
+    oss << std::setprecision(prec) << x;
+    std::string s = oss.str();
+    std::string::size_type p = s.find('.');
+    if (p != std::string::npos) {
+        while (!s.empty() && s[s.size()-1] == '0')
+            s.erase(s.size()-1);
+        if (!s.empty() && s[s.size()-1] == '.')
+            s.erase(s.size()-1);
+    }
+    return s;
+}
+
 bool isLeap(int year, int month, int day)
 {
     bool leap = (year % 400 == 0) || (year % 4 == 0 && year % 100 != 0);
     int months[] = {31, (leap) ? 29 : 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31};
-    std::cout << months[month - 1] << std::endl;
     if (months[month - 1] < day)
         return (false);
     return (true);
@@ -46,7 +60,7 @@ static bool validateValue(std::string value)
 
 bitcoinExchange::bitcoinExchange(std::string file)
 {
-    rFile.open(file);
+    rFile.open(file.c_str());
     if (!rFile.is_open())
         throw std::runtime_error("Error: could not open file.");
     std::fstream dFile("data.csv");
@@ -103,7 +117,9 @@ void bitcoinExchange::run()
                 std::map<unsigned long long int, double>::iterator it = Data.lower_bound(searchDate); 
                 if (it->first != searchDate && it != Data.begin())
                     --it; 
-                std::cout << formatedDate << " => " << splited[1] << " = " << strtod(splited[1].c_str(), NULL) * it->second << std::endl;
+                double res = strtod(splited[1].c_str(), NULL) * it->second;
+                std::cout << formatedDate << " => " << splited[1] << " = " << to_string_no_sci(res, 6) << std::endl;
+
                 delete[] splited;
             }
         }

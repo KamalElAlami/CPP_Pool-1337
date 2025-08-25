@@ -7,6 +7,9 @@
 #include <map>
 #include <exception>
 #include <iomanip>
+#include <cmath>
+#include <climits>
+#include <sstream>
 
 
 

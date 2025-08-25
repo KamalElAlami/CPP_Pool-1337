@@ -27,10 +27,8 @@ std::string* ft_split(const std::string& str, char c)
 
 void eraseFromString(std::string* str, char target)
 {
-    std::string::size_type pos = (*str).find(target);
-    while (pos != std::string::npos)
-    {
-        (*str).erase(pos, 1);
-        pos = (*str).find(target);
-    }
+    if ((*str)[0] == target)
+        (*str).erase(0, 1);
+    if ((*str)[(*str).size() - 1] == target)
+        (*str).erase((*str).size() - 1, 1);
 }
