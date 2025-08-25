@@ -25,10 +25,19 @@ std::string* ft_split(const std::string& str, char c)
     return (words);
 }
 
-void eraseFromString(std::string* str, char target)
+void bitcoinExchange::eraseFromString(std::string* str)
 {
-    if ((*str)[0] == target)
+    if ((*str)[0] == ' ')
         (*str).erase(0, 1);
-    if ((*str)[(*str).size() - 1] == target)
+    if ((*str)[(*str).size() - 1] == ' ')
         (*str).erase((*str).size() - 1, 1);
+}
+void bitcoinExchange::eraseFromString(std::string* str, char target)
+{
+    std::string::size_type pos = (*str).find(target);
+    while (pos != std::string::npos)
+    {
+        (*str).erase(pos, 1);
+        pos = (*str).find(target);
+    }
 }

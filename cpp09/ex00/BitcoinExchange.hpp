@@ -22,6 +22,8 @@ class bitcoinExchange
         bitcoinExchange(std::string file);
         ~bitcoinExchange();
         void run();
+        void eraseFromString(std::string* str);
+        void eraseFromString(std::string* str, char target);
 };
 
 std::string* ft_split(const std::string& str, char c);

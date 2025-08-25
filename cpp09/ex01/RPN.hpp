@@ -5,6 +5,7 @@
 #include <algorithm>
 #include <exception>
 #include <stack>
+#include <cstring>
 
 std::string* ft_split(const std::string& str, char c);
 void eraseFromString(std::string* str, char target);

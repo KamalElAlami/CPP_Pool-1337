@@ -9,6 +9,8 @@
 #include <cctype> 
 #include <utility>
 #include <exception>
+#include <algorithm>
+#include <ctime>
 
 
 void sortWithVector(std::vector<int>& vec);

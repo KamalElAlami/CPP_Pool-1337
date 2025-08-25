@@ -76,7 +76,7 @@ bitcoinExchange::bitcoinExchange(std::string file)
             continue;
         }
         eraseFromString(&splited[0], '-');
-        Data.insert(std::make_pair(atoi(splited[0].c_str()), strtod(splited[1].c_str(), NULL)));
+        Data.insert(std::make_pair(strtoll(splited[0].c_str(), NULL, 10), strtod(splited[1].c_str(), NULL)));
         delete[] splited;
     }
     dFile.close();
@@ -97,8 +97,8 @@ void bitcoinExchange::run()
     while (getline(rFile, line))
     {
         std::string *splited = ft_split(line, '|');
-        eraseFromString(&splited[0], ' ');
-        eraseFromString(&splited[1], ' ');
+        eraseFromString(&splited[0]);
+        eraseFromString(&splited[1]);
         if (splited[0] == "date")
         {
             delete[] splited;
@@ -113,10 +113,10 @@ void bitcoinExchange::run()
             {
                 std::string formatedDate = splited[0];
                 eraseFromString(&splited[0], '-');
-                unsigned long long int searchDate = atoi(splited[0].c_str());
+                unsigned long long int searchDate = strtoll(splited[0].c_str(), NULL, 10);
                 std::map<unsigned long long int, double>::iterator it = Data.lower_bound(searchDate); 
                 if (it->first != searchDate && it != Data.begin())
-                    --it; 
+                    --it;
                 double res = strtod(splited[1].c_str(), NULL) * it->second;
                 std::cout << formatedDate << " => " << splited[1] << " = " << to_string_no_sci(res, 6) << std::endl;
 

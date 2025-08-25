@@ -1,5 +1,9 @@
 #include "PmergeMe.hpp"
 
+bool compareByFirst(const std::pair<int, int>& a, const std::pair<int, int>& b) {
+    return a.first < b.first;
+}
+
 std::vector<int> parseArgsVector(char **av)
 {
     std::vector<int> container;
@@ -120,7 +124,7 @@ void sortWithVector(std::vector<int>& vec)
     int remainder = (vec.size() % 2 == 1) ? vec[vec.size() - 1] : -1;
     for (size_t i = 0; i < vec.size() - 1; i += 2)
             pairs.push_back(std::make_pair(std::max(vec[i], vec[i + 1]), std::min(vec[i], vec[i + 1])));
-    std::sort(pairs.begin(), pairs.end());
+    std::sort(pairs.begin(), pairs.end(), compareByFirst);
     createMainAndPend(pairs, main, pend, remainder);
     std::cout << "Before: ";
     printList(vec);

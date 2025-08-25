@@ -4,7 +4,7 @@ int main(int ac, char** av)
 {
     try
     {
-        if (ac != 2 || !validateArgs(av[1]))
+        if (ac != 2 || strlen(av[1]) == 0 || !validateArgs(av[1]))
             throw std::runtime_error("Error");
         performRPN(av[1]);
     }
