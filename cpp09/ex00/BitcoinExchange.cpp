@@ -1,5 +1,15 @@
 #include "BitcoinExchange.hpp"
 
+bool isLeap(int year, int month, int day)
+{
+    bool leap = (year % 400 == 0) || (year % 4 == 0 && year % 100 != 0);
+    int months[] = {31, (leap) ? 29 : 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31};
+    std::cout << months[month - 1] << std::endl;
+    if (months[month - 1] < day)
+        return (false);
+    return (true);
+}
+
 static bool validateDate(std::string date)
 {
     int count = 0;
@@ -14,10 +24,10 @@ static bool validateDate(std::string date)
                 return (delete[] splited, false);
     if (strtod(splited[0].c_str(), NULL) > INT_MAX || atoi(splited[1].c_str()) < 1 || atoi(splited[1].c_str()) > 12 || atoi(splited[2].c_str()) < 1 || atoi(splited[2].c_str()) > 31)
         return (delete[] splited, false);
-    if (atoi(splited[0].c_str()) < 2009 || (atoi(splited[0].c_str()) == 2009 && atoi(splited[2].c_str()) < 2))
+    if (atoi(splited[0].c_str()) < 2009 || (atoi(splited[0].c_str()) == 2009 && atoi(splited[2].c_str()) < 2) || !isLeap(atoi(splited[0].c_str()), atoi(splited[1].c_str()), atoi(splited[2].c_str())))
     {
         delete[] splited;
-        throw std::runtime_error("Error: date is too old");
+        throw std::runtime_error("Error: date is invalid");
     }
     return (delete[] splited, true);
 }
@@ -27,7 +37,7 @@ static bool validateValue(std::string value)
     double newVal = strtod(value.c_str(), &track);
     if (*track != '\0')
         throw std::runtime_error("Error: value is not a number.");
-    if (newVal > INT_MAX)
+    if (newVal > INT_MAX || newVal > 1000)
             throw std::runtime_error("Error: too large a number.");
     if (newVal < 0 )
             throw std::runtime_error("Error: not a positive number.");
@@ -60,8 +70,8 @@ bitcoinExchange::bitcoinExchange(std::string file)
 bool validateLineSyntax(std::string str)
 {
     int count = 0;
-    std::string::size_type pos = str.find('|');
-    while ((pos = str.find('|', pos)) != std::string::npos)
+    std::string::size_type pos = str.find(" | ");
+    while ((pos = str.find(" | ", pos)) != std::string::npos)
         count++, pos++;
     if (count != 1)
         return (false);
@@ -90,7 +100,6 @@ void bitcoinExchange::run()
                 std::string formatedDate = splited[0];
                 eraseFromString(&splited[0], '-');
                 unsigned long long int searchDate = atoi(splited[0].c_str());
-                std::cout << searchDate << std::endl;
                 std::map<unsigned long long int, double>::iterator it = Data.lower_bound(searchDate); 
                 if (it->first != searchDate && it != Data.begin())
                     --it; 
