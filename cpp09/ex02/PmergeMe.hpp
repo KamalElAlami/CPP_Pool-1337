@@ -9,23 +9,132 @@
 #include <cctype> 
 #include <utility>
 #include <exception>
-#include <algorithm>
-#include <ctime>
 
-
-void sortWithVector(std::vector<int>& vec);
-void sortWithDeque(std::deque<int>& vec);
-std::deque<int> parseArgsDeque(char **av);
-std::vector<int> parseArgsVector(char **av);
 int jacobsthal_Sequence(int n);
-
-template <typename T>
-void printList(T container)
+template < template<typename T, typename Allocator = std::allocator<T> > class Container >
+class PmergeMe
 {
-    for (size_t i = 0; i < container.size(); i++)
-        std::cout << container[i] << " ";
-    std::cout << std::endl;
-}
+    public :
+        PmergeMe() : remainder(-1){};
 
+        void parseInput(char **av)
+        {
+            for (int i = 1; av[i]; i++)
+            {
+                bool flag =  true;
+                for (int j = 0; av[i][j]; j++)
+                {
+                    if (!isdigit(av[i][j]))
+                        flag = false; 
+                }
+                long number = atol(av[i]);
+                if (flag && number <= INT_MAX && number >= 0)
+                    unsorted.push_back(number);
+                else
+                    throw std::runtime_error("Error");
+            }
+        }
+        void performSorting() 
+        {
+            remainder = (unsorted.size() % 2 == 1) ? unsorted[unsorted.size() - 1] : -1;
+            for (size_t i = 0; i < unsorted.size() - 1; i += 2)
+                    pairs.push_back(std::make_pair(std::max(unsorted[i], unsorted[i + 1]), std::min(unsorted[i], unsorted[i + 1])));
+            std::sort(pairs.begin(), pairs.end());
+            splitUnsortedContainer();
+        }
+
+        void splitUnsortedContainer()
+        {
+            main.push_back(pairs[0].second);
+            main.push_back(pairs[0].first);
+            for (size_t i = 1; i < pairs.size(); i++)
+            {
+                    main.push_back(pairs[i].first);
+                    pend.push_back(pairs[i].second);
+            }
+
+            Container<long> seq = genSortingSequence(static_cast<int>(pend.size()));
+            
+            if (!pend.empty())
+            {
+                for (size_t i = 0; i < seq.size(); i++)
+                {
+                    int index = binarySearch(0, main.size() - 1, pend[seq[i]]);
+                    if (static_cast<size_t>(index) < main.size())
+                        main.insert(main.begin() + index, pend[seq[i]]);
+                    else
+                        main.insert(main.end(), pend[seq[i]]);
+                }
+            }
+            if (remainder != -1)
+                main.insert(main.begin() + binarySearch(0, main.size() - 1, remainder), remainder);
+        }
+
+        Container<long> genSortingSequence(int size)
+        {
+            Container<long> seq;
+            seq.push_back(0);
+            seq.push_back(1);
+            if (size <= 2)
+                return (seq);
+            int i = 3, tmp = 0;
+            while (1)
+            {
+                tmp = jacobsthal_Sequence(i);
+                if (tmp >= size)
+                    break ;
+                seq.push_back(tmp);
+                i++;
+            }
+            Container<long> remaining;
+            for (int i = 0; i < size; i++)
+            {
+                bool found = false;
+                for (size_t j = 0; j < seq.size(); j++)
+                {
+                    if (i == seq[j])
+                    {
+                        found = true;
+                        break ;
+                    }
+                }
+                if (!found)
+                    remaining.push_back(i);
+            }
+            for (size_t i = 0; i < remaining.size(); i++)
+                seq.push_back(remaining[i]);
+            return (seq);
+        }
+
+        long binarySearch(int start, int end, int x)
+        {
+            if (start > end)
+                return (start);
+            int mid = (start + end) / 2;                                                                                      
+            if (main[mid] < x && (mid + 1 >= (int)main.size() || main[mid + 1] > x)) // check bounds or check next
+                return (mid + 1);
+            if (main[mid] > x)
+                return (binarySearch(start, mid -1, x));
+            else 
+                return (binarySearch(mid + 1, end, x));
+        }
+
+        void printContainer(Container<long>& con)
+        {
+            for (size_t i = 0; i < con.size(); i++)
+                std::cout << con[i] << " ";
+            std::cout << std::endl;
+        }
+
+        Container<long>& getSorted(){return (main);}
+        Container<long>& getUnsorted(){return (unsorted);}
+
+    private :
+        Container<long> unsorted;
+        Container<std::pair<long, long> > pairs;
+        Container<long> main;
+        Container<long> pend;
+        long remainder;
+};
 
 #endif
