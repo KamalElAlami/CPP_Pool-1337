@@ -11,13 +11,15 @@ int main(int ac, char **av)
         PmergeMe<std::deque> dec;
 
         vec.parseInput(av);
-        // dec.parseInput(av);
+        dec.parseInput(av);
         vec.performSorting();
-        // dec.performSorting();
-        // vec.printContainer(vec.getUnsorted());
-        // dec.printContainer(dec.getUnsorted());
+        dec.performSorting();
+        std::cout << "Before: ";
         vec.printContainer(vec.getSorted());
-        // dec.printContainer(dec.getSorted());
+        std::cout << "After: ";
+        dec.printContainer(dec.getSorted());
+        vec.getElapsedTime("std::vector");
+        dec.getElapsedTime("std::deque");
     }
     catch (const std::runtime_error& e)
     {

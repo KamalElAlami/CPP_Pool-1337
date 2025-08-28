@@ -10,13 +10,14 @@
 #include <utility>
 #include <exception>
 #include <algorithm>
+#include <ctime>
 
 int jacobsthal_Sequence(int n);
 template < template<typename T, typename Allocator = std::allocator<T> > class Container >
 class PmergeMe
 {
     public :
-        PmergeMe() : remainder(-1){};
+        PmergeMe() : start(clock()), remainder(-1){};
 
         void parseInput(char **av)
         {
@@ -87,6 +88,7 @@ class PmergeMe
             }
             if (remainder != -1)
                 main.insert(main.begin() + binarySearch(0, main.size() - 1, remainder), remainder);
+            end = clock();
         }
 
         Container<long> genSortingSequence(int size)
@@ -145,10 +147,19 @@ class PmergeMe
             std::cout << std::endl;
         }
 
+        void getElapsedTime(std::string container)
+        {
+            double time = ((double)(end - start) / CLOCKS_PER_SEC) * 1000000;
+            std::cout << "Time to process a range of 5 elements with " <<
+                container << " : " << time <<" us" << std::endl;
+        }
+
         Container<long>& getSorted(){return (main);}
         Container<long>& getUnsorted(){return (unsorted);}
 
     private :
+        clock_t start;
+        clock_t end;
         Container<long> unsorted;
         Container<std::pair<long, long> > pairs;
         Container<long> main;
