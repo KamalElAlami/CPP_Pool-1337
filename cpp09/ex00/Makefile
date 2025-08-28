@@ -4,7 +4,7 @@ CC = c++
 CFLAGS = -Wall -Wextra -Werror -std=c++98
 HEADER = BitcoinExchange.hpp
  
-SRC = main.cpp BitcoinExchange.cpp Utils.cpp
+SRC = main.cpp BitcoinExchange.cpp
 
 OBJ = $(SRC:.cpp=.o)
 

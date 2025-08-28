@@ -9,6 +9,7 @@
 #include <cctype> 
 #include <utility>
 #include <exception>
+#include <algorithm>
 
 int jacobsthal_Sequence(int n);
 template < template<typename T, typename Allocator = std::allocator<T> > class Container >
@@ -34,12 +35,28 @@ class PmergeMe
                     throw std::runtime_error("Error");
             }
         }
+        void sortPairs(Container< std::pair<long,long> >& a, size_t n) {
+            if (n <= 1) return;
+            sortPairs(a, n - 1);
+            std::pair<long,long> key = a[n - 1];
+            size_t j = n - 1;
+            while (j > 0 && a[j - 1].first > key.first) {
+                a[j] = a[j - 1];
+                --j;
+            }
+            a[j] = key;
+        }
+
         void performSorting() 
         {
-            remainder = (unsorted.size() % 2 == 1) ? unsorted[unsorted.size() - 1] : -1;
-            for (size_t i = 0; i < unsorted.size() - 1; i += 2)
-                    pairs.push_back(std::make_pair(std::max(unsorted[i], unsorted[i + 1]), std::min(unsorted[i], unsorted[i + 1])));
-            std::sort(pairs.begin(), pairs.end());
+            if (unsorted.size() % 2 == 1)
+            {
+                remainder = unsorted[unsorted.size() - 1];
+                unsorted.pop_back();
+            }
+            for (size_t i = 0; i < unsorted.size(); i += 2)
+                pairs.push_back(std::make_pair(std::max(unsorted[i], unsorted[i + 1]), std::min(unsorted[i], unsorted[i + 1])));
+            sortPairs(pairs, pairs.size());
             splitUnsortedContainer();
         }
 
@@ -59,6 +76,8 @@ class PmergeMe
             {
                 for (size_t i = 0; i < seq.size(); i++)
                 {
+                    if (seq[i] >= static_cast<int>(pend.size()))
+                        continue;
                     int index = binarySearch(0, main.size() - 1, pend[seq[i]]);
                     if (static_cast<size_t>(index) < main.size())
                         main.insert(main.begin() + index, pend[seq[i]]);

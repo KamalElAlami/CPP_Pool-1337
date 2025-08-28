@@ -4,7 +4,10 @@
 - [x] throw error when space between numbers btc
 - [x] rpn crash when 2 3 ++
 - [x] pmergeme segv in one number and it doesnt sort 3 numbers that is sorted in descending order
-- [ ] parsing error when you give all numbers in one arg
+- [x] parsing error when you give all numbers in one arg
+- [x] Your output: Error: invalid delimiter syntax Expected: Error: bad input => 2001-42-42
+- [ ] print running time PmergeME
+
   
 # Ford-Johnson Algorithm
 
@@ -29,7 +32,4 @@ Ford-Johnson or merge-insertion sort Algorithm is a Comparison algorithm that is
 - Take numbers From pend
 - Insert them into main using binary search
 - Use Jacobsthal Sequence
-
-Your output: Error: invalid delimiter syntax
-Expected: Error: bad input => 2001-42-42
 
