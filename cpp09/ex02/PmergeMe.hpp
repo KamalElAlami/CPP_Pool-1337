@@ -11,6 +11,7 @@
 #include <exception>
 #include <algorithm>
 #include <ctime>
+#include <cstring>
 
 int jacobsthal_Sequence(int n);
 template < template<typename T, typename Allocator = std::allocator<T> > class Container >
@@ -24,10 +25,12 @@ class PmergeMe
             for (int i = 1; av[i]; i++)
             {
                 bool flag =  true;
+                if (strlen(av[i]) == 0)
+                    throw std::runtime_error("Error");
                 for (int j = 0; av[i][j]; j++)
                 {
                     if (!isdigit(av[i][j]))
-                        flag = false; 
+                        flag = false;
                 }
                 long number = atol(av[i]);
                 if (flag && number <= INT_MAX && number >= 0)
