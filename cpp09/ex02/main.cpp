@@ -15,7 +15,7 @@ int main(int ac, char **av)
         vec.performSorting();
         dec.performSorting();
         std::cout << "Before: ";
-        vec.printContainer(vec.getSorted());
+        vec.printContainer(vec.getUnsorted());
         std::cout << "After: ";
         dec.printContainer(dec.getSorted());
         vec.getElapsedTime("std::vector");

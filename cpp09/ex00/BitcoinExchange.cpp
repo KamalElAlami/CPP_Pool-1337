@@ -74,6 +74,8 @@ static bool validateDate(std::string date)
         count++;
     if (count != 3)
         return (delete[] splited, false);
+    if (splited[1].size() != 2 || splited[2].size() != 2)
+        return (delete[] splited, false);
     for (int i = 0; !splited[i].empty(); i++)
         for (int j = 0; splited[i][j]; j++)
             if (!isdigit(splited[i][j]))
@@ -81,10 +83,7 @@ static bool validateDate(std::string date)
     if (strtod(splited[0].c_str(), NULL) > INT_MAX || atoi(splited[1].c_str()) < 1 || atoi(splited[1].c_str()) > 12 || atoi(splited[2].c_str()) < 1 || atoi(splited[2].c_str()) > 31)
         return (delete[] splited, false);
     if (atoi(splited[0].c_str()) < 2009 || (atoi(splited[0].c_str()) == 2009 && atoi(splited[2].c_str()) < 2) || !isLeap(atoi(splited[0].c_str()), atoi(splited[1].c_str()), atoi(splited[2].c_str())))
-    {
-        delete[] splited;
-        throw std::runtime_error("Error: date is invalid");
-    }
+        return (delete[] splited, false);
     return (delete[] splited, true);
 }
 static bool validateValue(std::string value)
@@ -138,14 +137,13 @@ void bitcoinExchange::run()
     std::string line;
     while (getline(rFile, line))
     {
+        if (line == "date | value")
+        {
+            continue;
+        }
         std::string *splited = ft_split(line, '|');
         eraseFromString(&splited[0]);
         eraseFromString(&splited[1]);
-        if (splited[0] == "date")
-        {
-            delete[] splited;
-            continue;
-        }
         try{
             if (!validateLineSyntax(line) || !validateDate(splited[0]))
                 throw std::runtime_error("Error: bad input => " + line);

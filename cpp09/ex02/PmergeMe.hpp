@@ -50,6 +50,7 @@ class PmergeMe
 
         void performSorting() 
         {
+            before = unsorted;
             if (unsorted.size() % 2 == 1)
             {
                 remainder = unsorted[unsorted.size() - 1];
@@ -150,17 +151,18 @@ class PmergeMe
         void getElapsedTime(std::string container)
         {
             double time = ((double)(end - start) / CLOCKS_PER_SEC) * 1000000;
-            std::cout << "Time to process a range of 5 elements with " <<
+            std::cout << "Time to process a range of " << before.size() <<" elements with " <<
                 container << " : " << time <<" us" << std::endl;
         }
 
         Container<long>& getSorted(){return (main);}
-        Container<long>& getUnsorted(){return (unsorted);}
+        Container<long>& getUnsorted(){return (before);}
 
     private :
         clock_t start;
         clock_t end;
         Container<long> unsorted;
+        Container<long> before;
         Container<std::pair<long, long> > pairs;
         Container<long> main;
         Container<long> pend;
