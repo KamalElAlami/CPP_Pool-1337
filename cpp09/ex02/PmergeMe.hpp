@@ -18,7 +18,7 @@ template < template<typename T, typename Allocator = std::allocator<T> > class C
 class PmergeMe
 {
     public :
-        PmergeMe() : start(clock()), remainder(-1){};
+        PmergeMe() : remainder(-1){};
 
         void parseInput(char **av)
         {
@@ -53,6 +53,7 @@ class PmergeMe
 
         void performSorting() 
         {
+            start = clock();
             before = unsorted;
             if (unsorted.size() % 2 == 1)
             {

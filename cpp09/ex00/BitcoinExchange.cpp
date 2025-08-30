@@ -89,6 +89,8 @@ static bool validateDate(std::string date)
 static bool validateValue(std::string value)
 {
     char* track = NULL;
+    if (value.empty())
+        throw std::runtime_error("Error: value is not a number.");
     double newVal = strtod(value.c_str(), &track);
     if (*track != '\0')
         throw std::runtime_error("Error: value is not a number.");
@@ -135,12 +137,11 @@ bool validateLineSyntax(std::string str)
 void bitcoinExchange::run()
 {
     std::string line;
+    getline(rFile, line);
+    if (line != "date | value")
+        throw std::runtime_error("Error : first line should be => date | value");
     while (getline(rFile, line))
     {
-        if (line == "date | value")
-        {
-            continue;
-        }
         std::string *splited = ft_split(line, '|');
         eraseFromString(&splited[0]);
         eraseFromString(&splited[1]);

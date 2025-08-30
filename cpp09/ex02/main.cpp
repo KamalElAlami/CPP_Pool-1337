@@ -3,7 +3,7 @@ std::vector<int> sortAll(std::vector<int> unsorted);
 
 int main(int ac, char **av)
 {
-    if (ac < 2)
+    if (ac < 3)
         return (std::cerr << "Error" << std::endl, 1);
     try
     {
